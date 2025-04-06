@@ -1,1 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>URL Scraping</title>
+    <link rel="stylesheet" href="urlscraping.css">
+</head>
+<body>
+    <div class="container">
+        <label for="url">Webpage URL</label>
+        <input type="text" id="url" placeholder="e.g., https://example.com">
+        <div class="slider-container">
+          <label for="volumeSlider">Select Value:</label>
+          <input type="range" id="volumeSlider" min="0" max="100" step="1" value="50">
+          <span class="slider-label" id="volumeValue">5</span>
+        </div>
+        
+        <button class="btn">Scrape this page</button>
+    </div>
 
+    <script src="urlscraping.js"></script>
+</body>
+</html>
