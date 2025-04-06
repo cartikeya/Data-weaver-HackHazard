@@ -8,8 +8,6 @@ a:hover {
   color: #535bf2;
 }
 
-
-
 .navbar {
   position: fixed;
   top: 0;
@@ -168,19 +166,30 @@ letter-spacing: 0.48px;
 }
 
 .vertical-heading {
+  display:flex;
+  flex-direction: column;
   height: 300px; 
-  transform: rotate(360deg);
-  transform-origin: top right;
+
+
+}
+.vertical-container{
+  display: flex;
+  /* justify-content: center;
+  align-items: center; */
+  
 }
 
 
 .vertical-heading h2 {
+  display: flex;
+  flex-direction: column;
   font-size: 20px;
   color: white;
-  text-align: center;
   font-family: sans-serif;
   line-height: 1;
-  padding-left: 4rem;
+}
+.vertical-heading div{
+  margin:20px 0;
 }
 
 .cont-btn{
