@@ -22,12 +22,17 @@
         <div class="container-fluid d-flex justify-content-between align-items-center">
           <a class="navbar-brand" href="#">DataWeave</a>
           <a href=""><i class="fa-solid fa-house-chimney-window home-icon"></i></a>
-              <div class="nav-item">
-                <div class="d-grid gap-2 d-md-block">
-                    <button class="btn btn-primary " type="button">Url Scraping</button>
-                    <button class="btn btn-primary" type="button">Prompt Scraping</button>
-                </div>
-
+          <div class="nav-item">
+            <div class="d-flex gap-2">
+              <form action="/urlscrape" method="GET">
+                <button class="btn btn-primary" type="Submit">Url Scraping</button>
+              </form>
+              <form action="/promptscrape" method="GET">
+                <button class="btn btn-primary" type="Submit">Prompt Scraping</button>
+              </form>
+            </div>
+          </div>
+          
               </div>
             </ul>
           </div>
@@ -75,21 +80,25 @@
             <div></div>
           <img class="home-img" src="/home.png" alt="Scraping">
           </div>
-          <div class="vertical-heading">
-            <h2>
-              <span>E</span><br>
-              <span>N</span><br>
-              <span>D</span><br>
-              <span>L</span><br>
-              <span>E</span><br>
-              <span>S</span><br>
-              <span>S</span><br><br>
-              <span>U</span><br>
-              <span>S</span><br>
-              <span>E</span><br>
-              <span>S</span>
-            </h2>
-          </div>
+<div class="vertical-container">
+  <div class="vertical-heading">
+    <h2>
+<div>E</div>
+<div>N</div>
+<div>D</div>
+<div>L</div>
+<div>E</div>
+<div>S</div>
+<div>S</div>
+<div>U</div>
+<div>S</div>
+<div>E</div>
+<div>S</div>
+
+    </h2>
+  </div>
+</div>
+          
           <div>
             <button class="btn btn-primary cont-btn" type="button">Start Scraping Now</button>
           </div>

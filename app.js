@@ -18,6 +18,14 @@ app.get("/", (req, res) => {
     res.render("index"); 
 });
 
+app.get("/urlscrape", (req, res) => {
+    res.render("urlscrape"); 
+});
+
+app.get("/promptscrape", (req, res) => {
+    res.render("prompt"); 
+});
+
 app.listen(port, () => {
     console.log("Server is listening on port", port);
 });
