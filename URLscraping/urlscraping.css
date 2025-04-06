@@ -129,3 +129,53 @@ input[type="range"]::-webkit-slider-thumb {
   opacity: 0.8;
   border: 2px solid black;
 }
+
+
+
+.data-display {
+  position: relative;
+  display: none;
+  margin-top: 20px;
+  padding: 15px;
+  background-color: #f9f9f9;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+/* Style for non-editable input fields */
+.data-display input[readonly],
+.data-display textarea[readonly] {
+  width: 100%;
+  margin-top: 8px;
+  margin-bottom: 15px;
+  padding: 10px;
+  font-size: 14px;
+  color: #555;
+  background-color: #f4f4f4;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  resize: none; /* Prevent resizing for textarea */
+}
+
+/* Style for labels */
+.data-display label {
+  font-size: 14px;
+  font-weight: 500;
+  color: #333;
+  display: block;
+  margin-bottom: 5px;
+}
+.download-btn {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  padding: 8px 16px;
+  background-color: #f4f4f4;
+  border: none;
+  border-radius: 8px;
+  
+  
+  cursor: pointer;
+}
+
+
