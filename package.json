@@ -2,10 +2,6 @@
   "name": "data-weaver",
   "private": true,
   "version": "0.0.0",
-<<<<<<< HEAD
-=======
-  "type": "module",
->>>>>>> df9be11f81cd14456e254e868dbfa0ef386661f0
   "scripts": {
     "dev": "vite",
     "build": "vite build",
@@ -13,14 +9,11 @@
   },
   "devDependencies": {
     "vite": "^6.2.0"
-<<<<<<< HEAD
   },
   "dependencies": {
     "bootstrap": "^5.3.5",
     "ejs": "^3.1.10",
     "express": "^5.1.0",
     "nodemon": "^3.1.9"
-=======
->>>>>>> df9be11f81cd14456e254e868dbfa0ef386661f0
   }
 }
