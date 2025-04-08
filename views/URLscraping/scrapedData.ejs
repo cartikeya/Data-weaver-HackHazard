@@ -54,7 +54,17 @@
         <div class="scraped-data-content">
             <textarea readonly class="scraped-data-box"><%= data %></textarea>
         </div>
+        <!-- AI Prompt Section -->
+        <div class="ai-prompt-container">
+            <h2>AI Prompt</h2>
+            <form action="/processPrompt" method="POST">
+                <textarea name="userPrompt" class="ai-prompt-box single-line" id="aiPromptBox" placeholder="Enter your prompt here..." required></textarea>
+                <div id="suggestions" class="suggestions-box"></div>
+                <button type="submit" class="btn">Submit</button>
+            </form>
+        </div>
     </div>
+    
     <script>
         document.addEventListener("DOMContentLoaded", () => {
             const textarea = document.querySelector(".scraped-data-box");
@@ -69,7 +79,45 @@
                 const faviconUrl = `${url}/favicon.ico`; // Construct the favicon URL
                 faviconElement.src = faviconUrl;
 
-            }
+            } 
+            // Auto-suggest functionality
+            const aiPromptBox = document.getElementById("aiPromptBox");
+            const suggestionsBox = document.getElementById("suggestions");
+            const keywords = ["Analyze data", "Generate report", "Summarize text", "Extract keywords", "Classify content"];
+
+                aiPromptBox.addEventListener("input", () => {
+                    const input = aiPromptBox.value.toLowerCase();
+                    suggestionsBox.innerHTML = ""; // Clear previous suggestions
+
+                    if (input) {
+                        const filteredKeywords = keywords.filter(keyword => keyword.toLowerCase().includes(input));
+                        if (filteredKeywords.length > 0) {
+                            suggestionsBox.classList.add("show"); // Add the 'show' class to make it visible
+                            filteredKeywords.forEach(keyword => {
+                                const button = document.createElement("button");
+                                button.textContent = keyword;
+                                button.addEventListener("click", () => {
+                                    aiPromptBox.value = keyword; // Set the clicked suggestion as the input value
+                                    suggestionsBox.innerHTML = ""; // Clear suggestions
+                                    suggestionsBox.classList.remove("show"); // Hide the suggestions
+                                });
+                                suggestionsBox.appendChild(button);
+                            });
+                        } else {
+                            suggestionsBox.classList.remove("show"); // Hide if no suggestions match
+                        }
+                    } else {
+                        suggestionsBox.classList.remove("show"); // Hide if input is empty
+                    }
+                });
+
+            // Hide suggestions when clicking outside
+            document.addEventListener("click", (event) => {
+                if (!aiPromptBox.contains(event.target) && !suggestionsBox.contains(event.target)) {
+                    suggestionsBox.innerHTML = "";
+                    suggestionsBox.classList.remove("show"); // Hide the suggestions
+                }
+            });
         });
     </script>
 </body>
