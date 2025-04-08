@@ -20,6 +20,10 @@ app.get("/", (req, res) => {
 app.get("/urlscrape", (req, res) => {
     res.render("./URLscraping/urlscraping"); 
 });
+app.get("/scrapedData", (req, res) => {
+    const { data, url } = req.query; // Get the scraped data and URL from query parameters
+    res.render("./URLscraping/scrapedData", { data, url }); // Pass data and URL to the view
+});
 
 // Route to handle scraping
 app.get("/scrape", async (req, res) => {

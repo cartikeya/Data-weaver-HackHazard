@@ -40,20 +40,8 @@ button.addEventListener("click", async function () {
         const scrapedData = await response.text(); // Get the scraped data from the response
         console.log("Scraped Data:", scrapedData);
 
-        // Dynamically create the dataDisplay element if it doesn't exist
-        let dataDisplay = document.getElementById("dataDisplay");
-        if (!dataDisplay) {
-            dataDisplay = document.createElement("div");
-            dataDisplay.id = "dataDisplay";
-            document.body.appendChild(dataDisplay);
-        }
-
-        // Display the scraped data
-        dataDisplay.innerHTML = `
-            <label for="dataTitle">Scraped Data:</label>
-            <textarea id="scrapedData" readonly>${scrapedData}</textarea>
-        `;
-        dataDisplay.style.display = "block";
+        // Redirect to the new page with the scraped data and URL as query parameters
+        window.location.href = `/scrapedData?data=${encodeURIComponent(scrapedData)}&url=${encodeURIComponent(url)}`;
     } catch (error) {
         console.error("Error scraping the website:", error);
         alert("Error scraping the website. Please check the console for details.");

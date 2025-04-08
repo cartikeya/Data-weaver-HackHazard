@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scraped Data</title>
+    <link href="index.css" rel="stylesheet" type="text/css" />
+    <link href="/URLscraping/urlscraping.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+    <div class="navbar-no-shadow">
+        <!-- Navigation bar container -->
+        <div data-animation="default" data-collapse="medium" data-duration="400" data-easing="ease" data-easing2="ease" role="banner" class="navbar-no-shadow-container w-nav">
+            <!-- Navbar with Webflow attributes -->
+            <div class="container-regular">
+                <!-- Wrapper for navbar content -->
+                <div class="navbar-wrapper">
+                    <!-- Navbar content -->
+                    <a href="#" class="navbar-brand w-nav-brand">
+                        <!-- Logo link -->
+                        <img src="https://cdn.prod.website-files.com/67f2220a9e19e1e37a55ec03/67f2225ebca552823848f963_DataWeave.png" loading="lazy" width="98" alt="" />
+                        <!-- Logo image -->
+                    </a>
+                    <nav role="navigation" class="nav-menu-wrapper w-nav-menu">
+                        <!-- Navigation menu -->
+                        <ul role="list" class="nav-menu w-list-unstyled">
+                            <!-- List of navigation items -->
+                            <li class="mobile-margin-top-10">
+                                <!-- List item -->
+                                <div class="nav-button-wrapper">
+                                    <!-- Wrapper for buttons -->
+                                    <a href="/urlscrape" class="button-primary w-button">URL scraping</a>
+                                    <!-- Button for URL scraping -->
+                                    <a href="/promptscrape" class="button-primary w-button">Prompt scraping</a>
+                                    <!-- Button for prompt scraping -->
+                                </div>
+                            </li>
+                        </ul>
+                    </nav>
+                    <div class="menu-button w-nav-button">
+                        <!-- Mobile menu button -->
+                        <div class="w-icon-nav-menu"></div>
+                        <!-- Icon for the menu button -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="scraped-container">
+        <div class="scraped-data-header">
+            <h1>Scraped Data</h1>
+            <img id="site-favicon" src="<%= url %>/favicon.ico" alt="Site Favicon" class="site-favicon">
+        </div>
+        <div class="scraped-data-content">
+            <textarea readonly class="scraped-data-box"><%= data %></textarea>
+        </div>
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const textarea = document.querySelector(".scraped-data-box");
+            if (textarea) {
+                
+                textarea.style.height = "auto"; 
+                textarea.style.height = `${textarea.scrollHeight}px`; 
+            }
+            const faviconElement = document.getElementById("site-favicon");
+            const url = "<%= url %>"; // URL passed from the server
+            if (url) {
+                const faviconUrl = `${url}/favicon.ico`; // Construct the favicon URL
+                faviconElement.src = faviconUrl;
+
+            }
+        });
+    </script>
+</body>
+</html>
