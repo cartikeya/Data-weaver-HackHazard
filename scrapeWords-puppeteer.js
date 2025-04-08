@@ -18,3 +18,9 @@ async function scrapeWebsite(url) {
 }
 
 module.exports = scrapeWebsite;
+
+(async () => {
+  const url = 'https://example.com'; // Replace with the URL you want to scrape
+  const result = await scrapeWebsite(url);
+  console.log(result);
+})();

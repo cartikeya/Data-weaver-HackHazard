@@ -16,7 +16,7 @@ slider.addEventListener("input", function() {
     slider.style.background = `linear-gradient(to right,rgb(0, 0, 0) 0%,rgb(71, 73, 71) ${value}%, #d9d9d9 ${value}%)`;
 });
 
-button.addEventListener("click", function() {
+button.addEventListener("click", async function () {
     const url = urlInput.value;
     const sliderValue = slider.value;
 
@@ -30,21 +30,32 @@ button.addEventListener("click", function() {
     console.log("URL:", url);
     console.log("Slider Value:", sliderValue);
 
-    const retrievedData = {
-        title: "Sample Title",
-        description: "This is an example description of the scraped webpage.",
-        sliderValue: sliderValue,
-    };
+    try {
+        // Send a GET request to the /scrape endpoint with the URL as a query parameter
+        const response = await fetch(`/scrape?url=${encodeURIComponent(url)}`);
+        if (!response.ok) {
+            throw new Error("Failed to scrape the website");
+        }
 
-    const dataDisplay = document.getElementById("dataDisplay");
-    dataDisplay.innerHTML = `
-        <label for="dataTitle">Title:</label>
-        <input type="text" id="dataTitle" value="${retrievedData.title}" readonly>
-        <label for="dataDescription">Description:</label>
-        <div class="description-container">
-            <textarea id="dataDescription" readonly>${retrievedData.description}</textarea>
-            <button id="downloadButton" class="download-btn"><img src="/Data-weaver-HackHazard/public/download.svg"></img></button>
-        </div>
-    `;
-    dataDisplay.style.display = "block";
+        const scrapedData = await response.text(); // Get the scraped data from the response
+        console.log("Scraped Data:", scrapedData);
+
+        // Dynamically create the dataDisplay element if it doesn't exist
+        let dataDisplay = document.getElementById("dataDisplay");
+        if (!dataDisplay) {
+            dataDisplay = document.createElement("div");
+            dataDisplay.id = "dataDisplay";
+            document.body.appendChild(dataDisplay);
+        }
+
+        // Display the scraped data
+        dataDisplay.innerHTML = `
+            <label for="dataTitle">Scraped Data:</label>
+            <textarea id="scrapedData" readonly>${scrapedData}</textarea>
+        `;
+        dataDisplay.style.display = "block";
+    } catch (error) {
+        console.error("Error scraping the website:", error);
+        alert("Error scraping the website. Please check the console for details.");
+    }
 });
