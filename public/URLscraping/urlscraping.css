@@ -230,10 +230,11 @@ input[type="range"]::-webkit-slider-thumb {
   font-size: 14px;
   color: #0c0808;
   background-color: #f3f3f3;
-  border: none;
+  
   border-radius: 90px;
   cursor: pointer;
   transition: background-color 0.3s ease;
+  
 }
 .suggestions-box button:hover {
   background-color: #ffffff;
