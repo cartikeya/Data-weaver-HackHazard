@@ -54,13 +54,14 @@
         </div>
         <div class="scraped-data-content">
             <div readonly class="scraped-data-box"></div>
-            <div class="scroll"  class="scraped-data-box">
+            <div class="scroll">
                 <div class="text">
-                <p>
-                    
-    <%= data.replace(/\n/g, '<br>') %> 
-                </p></div></div>
+                    <div class="typing-effect"><%= data.replace(/\n/g, '<br>') %></div>
+                </div>
+            </div>
         </div>
+          
+        
         <!-- AI Prompt Section -->
         <div class="ai-prompt-container">
             <h2>AI Prompt</h2>
@@ -71,56 +72,78 @@
             </form>
         </div>
     </div>
-    
-    <script>
 
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Assuming the scraped data is passed into the template as `data`
+            const textElement = document.getElementById('scraped-data-text');
+            const scrapedData = "<%= data.replace(/\n/g, '<br>') %>";  // data from the backend
+
+            if (scrapedData) {
+                textElement.innerHTML = scrapedData;  // Insert scraped data into the element
+
+                // Typing effect
+                let i = 0;
+                function type() {
+                    if (i < scrapedData.length) {
+                        textElement.innerHTML += scrapedData.charAt(i);
+                        i++;
+                        setTimeout(type, 100); // Adjust typing speed (in milliseconds)
+                    }
+                }
+                type();  // Start typing effect
+            } else {
+                textElement.innerHTML = "No data available."; // If no data is passed
+            }
+        });
+    </script>
+
+    <script>
         document.addEventListener("DOMContentLoaded", () => {
             const textarea = document.querySelector(".scraped-data-box");
-            console.log("<%= data.replace(/\n/g, '<br>') %>");
             if (textarea) {
-                
                 textarea.style.height = "auto"; 
                 textarea.style.height = `${textarea.scrollHeight}px`; 
             }
+
             const faviconElement = document.getElementById("site-favicon");
             const url = "<%= url %>"; // URL passed from the server
             if (url) {
-                const faviconUrl = `${url}/favicon.ico`; // Construct the favicon URL
                 const domain = new URL(url).hostname; // Extract the domain from the URL
                 const size = 250; // Set the size to 250
                 faviconElement.src = `https://www.google.com/s2/favicons?domain=${domain}&sz=${size}`;
+            }
 
-            } 
             // Auto-suggest functionality
             const aiPromptBox = document.getElementById("aiPromptBox");
             const suggestionsBox = document.getElementById("suggestions");
             const keywords = ["Analyze data", "Generate report", "Summarize text", "Extract keywords", "Classify content"];
 
-                aiPromptBox.addEventListener("input", () => {
-                    const input = aiPromptBox.value.toLowerCase();
-                    suggestionsBox.innerHTML = ""; // Clear previous suggestions
+            aiPromptBox.addEventListener("input", () => {
+                const input = aiPromptBox.value.toLowerCase();
+                suggestionsBox.innerHTML = ""; // Clear previous suggestions
 
-                    if (input) {
-                        const filteredKeywords = keywords.filter(keyword => keyword.toLowerCase().includes(input));
-                        if (filteredKeywords.length > 0) {
-                            suggestionsBox.classList.add("show"); // Add the 'show' class to make it visible
-                            filteredKeywords.forEach(keyword => {
-                                const button = document.createElement("button");
-                                button.textContent = keyword;
-                                button.addEventListener("click", () => {
-                                    aiPromptBox.value = keyword; // Set the clicked suggestion as the input value
-                                    suggestionsBox.innerHTML = ""; // Clear suggestions
-                                    suggestionsBox.classList.remove("show"); // Hide the suggestions
-                                });
-                                suggestionsBox.appendChild(button);
+                if (input) {
+                    const filteredKeywords = keywords.filter(keyword => keyword.toLowerCase().includes(input));
+                    if (filteredKeywords.length > 0) {
+                        suggestionsBox.classList.add("show"); // Add the 'show' class to make it visible
+                        filteredKeywords.forEach(keyword => {
+                            const button = document.createElement("button");
+                            button.textContent = keyword;
+                            button.addEventListener("click", () => {
+                                aiPromptBox.value = keyword; // Set the clicked suggestion as the input value
+                                suggestionsBox.innerHTML = ""; // Clear suggestions
+                                suggestionsBox.classList.remove("show"); // Hide the suggestions
                             });
-                        } else {
-                            suggestionsBox.classList.remove("show"); // Hide if no suggestions match
-                        }
+                            suggestionsBox.appendChild(button);
+                        });
                     } else {
-                        suggestionsBox.classList.remove("show"); // Hide if input is empty
+                        suggestionsBox.classList.remove("show"); // Hide if no suggestions match
                     }
-                });
+                } else {
+                    suggestionsBox.classList.remove("show"); // Hide if input is empty
+                }
+            });
 
             // Hide suggestions when clicking outside
             document.addEventListener("click", (event) => {
