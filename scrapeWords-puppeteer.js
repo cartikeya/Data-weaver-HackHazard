@@ -1,24 +1,33 @@
 const puppeteer = require('puppeteer');
 
 async function scrapeWebsite(url) {
-  const browser = await puppeteer.launch({
-    headless: true,
-    args: ['--no-sandbox', '--disable-setuid-sandbox']
-  });
+  if (!url) {
+    throw new Error("URL is required");
+  }
 
+  const browser = await puppeteer.launch({ headless: true }); // Set to false if you want to see it open Chrome
   const page = await browser.newPage();
-  await page.goto(url, { waitUntil: 'domcontentloaded' });
 
-  const html = await page.content(); // Get the entire HTML content of the page
+  await page.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/122.0.0.0 Safari/537.36');
 
-  await browser.close();
-  return html;
-  console.log("chakke")
+  try {
+    await page.goto(url, { waitUntil: 'networkidle2' });
+
+    const pageText = await page.evaluate(() => {
+      return document.body.innerText;
+    });
+
+    const words = pageText.match(/\b\w+\b/g) || [];
+    const firstThousand = words.slice(0, 3000);
+
+    await browser.close();
+    return firstThousand.join(' ');
+  } catch (err) {
+    await browser.close();
+    throw new Error(`Error scraping website: ${err.message}`);
+  }
 }
+
+
 module.exports = scrapeWebsite;
 
-(async () => {
-  const url = 'https://example.com'; // Replace with the URL you want to scrape
-  const result = await scrapeWebsite(url);
-  console.log(result);
-})();

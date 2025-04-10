@@ -6,6 +6,7 @@ const dataContainer = document.createElement("div");
 dataContainer.classList.add("data-container");
 document.body.appendChild(dataContainer);
 
+
 slider.addEventListener("input", function() {
     output.textContent = slider.value;
     
@@ -29,16 +30,14 @@ button.addEventListener("click", async function () {
 
     console.log("URL:", url);
     console.log("Slider Value:", sliderValue);
-    console.log();
+    
 
     try {
         // Send a GET request to the /scrape endpoint with the URL as a query parameter
-        const response = await fetch(`/scrape?url=${encodeURIComponent(url)}`);
-        if (!response.ok) {
-            throw new Error("Failed to scrape the website");
-        }
+        const response = "Data"; // Call the scrapeWords-puppeteer function with the URL
 
-        const scrapedData = await response.text(); // Get the scraped data from the response
+
+        const scrapedData = response; // Get the scraped data from the response
         console.log("Scraped Data:", scrapedData);
 
         // Redirect to the new page with the scraped data and URL as query parameters
