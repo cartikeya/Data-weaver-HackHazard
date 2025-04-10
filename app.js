@@ -31,19 +31,32 @@ app.get("/scrapedData", (req, res) => {
 });
 
 // Updated scrape route — now renders scrapedData.ejs
+// app.get("/scrape", async (req, res) => {
+//     const url = req.query.url;
+//     if (!url) {
+//         return res.status(400).send("URL is required");
+//     }
+
+//     try {
+//         const data = await scrapeWebsite(url);
+//         console.log("Scraped data:", data);
+//         res.render("URLscraping/scrapedData", { data, url }); // pass to EJS
+//     } catch (error) {
+//         console.error("Error scraping website:", error);
+//         res.status(500).send("Failed to scrape the website");
+//     }
+// });
 app.get("/scrape", async (req, res) => {
-    const url = req.query.url;
-    if (!url) {
-        return res.status(400).send("URL is required");
-    }
+    const { url, limit } = req.query;
+
+    if (!url) return res.status(400).send("URL is required");
 
     try {
-        const data = await scrapeWebsite(url);
-        console.log("Scraped data:", data);
-        res.render("URLscraping/scrapedData", { data, url }); // pass to EJS
+        const data = await scrapeWebsite(url, limit); // pass limit to scraper if needed
+        res.render("URLscraping/scrapedData", { data, url });
     } catch (error) {
-        console.error("Error scraping website:", error);
-        res.status(500).send("Failed to scrape the website");
+        console.error("Scraping failed:", error);
+        res.status(500).send("Scraping failed.");
     }
 });
 
