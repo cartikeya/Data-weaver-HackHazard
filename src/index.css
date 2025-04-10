@@ -3118,7 +3118,7 @@ html {
       max-width: none;
     }
   
-    .hero-split {
+    /* .hero-split {} */
   
     .flex-block {
       grid-column-gap: 0px;
