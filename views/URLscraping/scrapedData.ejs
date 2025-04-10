@@ -7,6 +7,7 @@
     <link href="index.css" rel="stylesheet" type="text/css" />
     <link href="/URLscraping/urlscraping.css" rel="stylesheet" type="text/css">
 </head>
+
 <body>
     <div class="navbar-no-shadow">
         <!-- Navigation bar container -->
@@ -52,7 +53,13 @@
             <img id="site-favicon" src="<%= url %>/favicon.ico" alt="Site Favicon" class="site-favicon">
         </div>
         <div class="scraped-data-content">
-            <textarea readonly class="scraped-data-box"><%= data %></textarea>
+            <div readonly class="scraped-data-box"></div>
+            <div class="scroll"  class="scraped-data-box">
+                <div class="text">
+                <p>
+                    
+    <%= data.replace(/\n/g, '<br>') %> 
+                </p></div></div>
         </div>
         <!-- AI Prompt Section -->
         <div class="ai-prompt-container">
@@ -66,8 +73,10 @@
     </div>
     
     <script>
+
         document.addEventListener("DOMContentLoaded", () => {
             const textarea = document.querySelector(".scraped-data-box");
+            console.log("<%= data.replace(/\n/g, '<br>') %>");
             if (textarea) {
                 
                 textarea.style.height = "auto"; 
@@ -77,7 +86,9 @@
             const url = "<%= url %>"; // URL passed from the server
             if (url) {
                 const faviconUrl = `${url}/favicon.ico`; // Construct the favicon URL
-                faviconElement.src = faviconUrl;
+                const domain = new URL(url).hostname; // Extract the domain from the URL
+                const size = 250; // Set the size to 250
+                faviconElement.src = `https://www.google.com/s2/favicons?domain=${domain}&sz=${size}`;
 
             } 
             // Auto-suggest functionality

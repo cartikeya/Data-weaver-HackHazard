@@ -9,14 +9,12 @@ async function scrapeWebsite(url) {
   const page = await browser.newPage();
   await page.goto(url, { waitUntil: 'domcontentloaded' });
 
-  const text = await page.evaluate(() => document.body.innerText);
-  const words = text.match(/\b\w+\b/g) || [];
-  const firstThousand = words.slice(0, 1000).join(' ');
+  const html = await page.content(); // Get the entire HTML content of the page
 
   await browser.close();
-  return firstThousand;
+  return html;
+  console.log("chakke")
 }
-
 module.exports = scrapeWebsite;
 
 (async () => {

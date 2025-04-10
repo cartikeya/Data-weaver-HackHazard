@@ -29,6 +29,7 @@ button.addEventListener("click", async function () {
 
     console.log("URL:", url);
     console.log("Slider Value:", sliderValue);
+    console.log();
 
     try {
         // Send a GET request to the /scrape endpoint with the URL as a query parameter
