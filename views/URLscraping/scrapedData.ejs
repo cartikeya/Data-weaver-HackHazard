@@ -6,6 +6,7 @@
     <title>Scraped Data</title>
     <link href="index.css" rel="stylesheet" type="text/css" />
     <link href="/URLscraping/urlscraping.css" rel="stylesheet" type="text/css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
 </head>
 
 <body>
@@ -61,6 +62,9 @@
                     <div class="typing-effect" id="typingEffectContainer"></div>
                 </div>
             </div>
+            <button id="stopButton" class="stop-btn">
+                <i class="fas fa-stop"></i>
+            </button>
         </div>
           
         
@@ -78,41 +82,48 @@
     <script>
         document.addEventListener("DOMContentLoaded", function () {
     const typingEffectContainer = document.getElementById("typingEffectContainer");
+    const stopButton = document.getElementById("stopButton");
     const scrapedData = "<%= data %>"; // Raw data from the backend
     const lines = scrapedData.split("\n"); // Split the data into lines
 
-    if (lines.length > 0) {
-        let currentLine = 0;
+    let currentLine = 0;
+    let typingInterval; // Variable to store the typing interval
+    let isStopped = false; // Flag to track if the animation is stopped
 
-        function typeLine() {
-            if (currentLine < lines.length) {
-                const lineElement = document.createElement("div");
-                lineElement.classList.add("typing-line");
-                typingEffectContainer.appendChild(lineElement);
+    function typeLine() {
+        if (currentLine < lines.length && !isStopped) {
+            const lineElement = document.createElement("div");
+            lineElement.classList.add("typing-line");
+            typingEffectContainer.appendChild(lineElement);
 
-                let i = 0;
-                function typeCharacter() {
-                    if (i < lines[currentLine].length) {
-                        lineElement.innerHTML += lines[currentLine].charAt(i);
-                        i++;
-                        setTimeout(typeCharacter, 20); // Adjust typing speed (in milliseconds)
-                    } else {
-                        currentLine++;
-                        setTimeout(typeLine, 100); // Delay before typing the next line
-                    }
+            let i = 0;
+            function typeCharacter() {
+                if (i < lines[currentLine].length && !isStopped) {
+                    lineElement.innerHTML += lines[currentLine].charAt(i);
+                    i++;
+                    typingInterval = setTimeout(typeCharacter, 20); // Typing speed (20ms per character)
+                } else if (!isStopped) {
+                    currentLine++;
+                    setTimeout(typeLine, 100); // Delay before typing the next line
                 }
-                typeCharacter();
-            } else {
-                console.log("Typing effect completed.");
             }
+            typeCharacter();
+        } else if (isStopped) {
+            console.log("Typing animation stopped.");
+        } else {
+            console.log("Typing effect completed.");
         }
-
-
-        typingEffectContainer.innerHTML = "";
-        typeLine(); // Start the typing effect
-    } else {
-        typingEffectContainer.innerHTML = "No data available."; // If no data is passed
     }
+
+    // Event listener for the Stop button
+    stopButton.addEventListener("click", function () {
+        isStopped = true; // Set the flag to stop the animation
+        clearTimeout(typingInterval); // Clear the current typing interval
+        console.log("Stop button clicked. Typing animation stopped.");
+    });
+
+    typingEffectContainer.innerHTML = ""; // Clear the container before starting the animation
+    typeLine(); // Start the typing effect
 });
     </script>
 
