@@ -7,6 +7,9 @@
     <link href="index.css" rel="stylesheet" type="text/css" />
     <link href="/URLscraping/urlscraping.css" rel="stylesheet" type="text/css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <link href="index.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="/promptscraping/promptscraping.css">
+
 </head>
 
 <body>
@@ -74,17 +77,21 @@
           
         
         <!-- AI Prompt Section -->
-        <div class="ai-prompt-container">
-            <h2>AI Prompt</h2>
-            <form action="/processPrompt" method="POST">
-                <textarea name="userPrompt" class="ai-prompt-box single-line" id="aiPromptBox" placeholder="Enter your prompt here..." required></textarea>
-                <div id="suggestions" class="suggestions-box"></div>
-                <button type="submit" class="btn">Submit</button>
-            </form>
-        </div>
-    </div>
+        <div class="container" style="box-shadow: none; padding: 0px ; margin-top: 20px; margin-left: 10px;">
+            <label for="url">What do you wanna do with this data? <img src="/assets/imagine1.png" alt="imagine image"></label>
+            <textarea  id="url" placeholder="eg: " rows="4"></textarea>
+            <a style="margin-top: 10px;" class="button-primary w-button createbutton">Create</a>
+        </div></div>
 
     <script>
+        const prompt = document.getElementById("url");
+        const createbtn = document.querySelector('.createbutton');
+        createbtn.addEventListener('click', function () {
+            
+            console.log(prompt.value);
+            
+        });
+        
         document.addEventListener("DOMContentLoaded", function () {
     const typingEffectContainer = document.getElementById("typingEffectContainer");
     const stopButton = document.getElementById("stopButton");
