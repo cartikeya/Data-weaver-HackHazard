@@ -34,14 +34,16 @@
                                     <!-- Button for URL scraping -->
                                     <a href="/promptscrape" class="button-primary w-button">Prompt scraping</a>
                                     <!-- Button for prompt scraping -->
+ 
                                 </div>
                             </li>
                         </ul>
                     </nav>
                     <div class="menu-button w-nav-button">
                         <!-- Mobile menu button -->
-                        <div class="w-icon-nav-menu"></div>
-                        <!-- Icon for the menu button -->
+                        <div></div>
+                        <div></div>
+                        <div></div>
                     </div>
                 </div>
             </div>
@@ -56,7 +58,7 @@
             <div readonly class="scraped-data-box"></div>
             <div class="scroll">
                 <div class="text">
-                    <div class="typing-effect"><%= data.replace(/\n/g, '<br>') %></div>
+                    <div class="typing-effect" id="typingEffectContainer"></div>
                 </div>
             </div>
         </div>
@@ -75,27 +77,43 @@
 
     <script>
         document.addEventListener("DOMContentLoaded", function () {
-            // Assuming the scraped data is passed into the template as `data`
-            const textElement = document.getElementById('scraped-data-text');
-            const scrapedData = "<%= data.replace(/\n/g, '<br>') %>";  // data from the backend
+    const typingEffectContainer = document.getElementById("typingEffectContainer");
+    const scrapedData = "<%= data %>"; // Raw data from the backend
+    const lines = scrapedData.split("\n"); // Split the data into lines
 
-            if (scrapedData) {
-                textElement.innerHTML = scrapedData;  // Insert scraped data into the element
+    if (lines.length > 0) {
+        let currentLine = 0;
 
-                // Typing effect
+        function typeLine() {
+            if (currentLine < lines.length) {
+                const lineElement = document.createElement("div");
+                lineElement.classList.add("typing-line");
+                typingEffectContainer.appendChild(lineElement);
+
                 let i = 0;
-                function type() {
-                    if (i < scrapedData.length) {
-                        textElement.innerHTML += scrapedData.charAt(i);
+                function typeCharacter() {
+                    if (i < lines[currentLine].length) {
+                        lineElement.innerHTML += lines[currentLine].charAt(i);
                         i++;
-                        setTimeout(type, 100); // Adjust typing speed (in milliseconds)
+                        setTimeout(typeCharacter, 20); // Adjust typing speed (in milliseconds)
+                    } else {
+                        currentLine++;
+                        setTimeout(typeLine, 100); // Delay before typing the next line
                     }
                 }
-                type();  // Start typing effect
+                typeCharacter();
             } else {
-                textElement.innerHTML = "No data available."; // If no data is passed
+                console.log("Typing effect completed.");
             }
-        });
+        }
+
+
+        typingEffectContainer.innerHTML = "";
+        typeLine(); // Start the typing effect
+    } else {
+        typingEffectContainer.innerHTML = "No data available."; // If no data is passed
+    }
+});
     </script>
 
     <script>

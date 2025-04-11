@@ -383,3 +383,60 @@ header {
 
 
   
+.typing-effect {
+  display: inline-block;
+  white-space: pre-wrap; /* Allows text to wrap and preserves line breaks */
+  overflow: hidden;    
+  /* border-right: 2px solid black; Simulate the cursor */
+  
+}
+
+.typing-line{
+  display: block; /* Ensure each line is treated as a block */
+  overflow: hidden;
+  white-space: pre-wrap; /* Prevent wrapping */
+  /* border-right: 2px solid black; */
+  animation: typing-line 4s steps(40) 1s 1 normal both, blink 0.5s step-end infinite; /* Typing animation */
+}
+
+.typing-line:nth-child(1) {
+  animation-delay: 0s; /* Delay for the first line */
+}
+
+.typing-line:nth-child(2) {
+  animation-delay: 4s; /* Delay for the second line */
+}
+
+.typing-line:nth-child(3) {
+  animation-delay: 8s; /* Delay for the third line */
+}
+
+@keyframes typing-line {
+  from {
+    width: 0%;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+@keyframes blink {
+  from,to {
+    border-color: transparent;
+  }
+  50% {
+    border-color: black;
+  }
+}
+    
+
+.scroll {
+  overflow-y: auto;
+  max-height: 400px;  /* Adjust as needed */
+}
+
+.scraped-data-box {
+  height: auto;
+  max-height: 100%;  /* Optional: adjust based on your container size */
+  padding: 10px;
+}

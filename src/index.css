@@ -3201,30 +3201,3 @@ html {
 .footer-links a:hover {
     text-decoration: underline;
 }
-.typing-effect {
-  display: inline-block;
-  white-space: nowrap; /* Ensures text wraps and line breaks are preserved */
-  overflow: hidden;    
-  border-right: 2px solid black; /* Simulate the cursor */
-  animation: typing 3s steps(40) 1s 1 normal both; /* Typing animation */
-}
-
-@keyframes typing {
-  from {
-    width: 0%;
-  }
-  to {
-    width: 100%;
-  }
-}
-
-.scroll {
-  overflow-y: auto;
-  max-height: 400px;  /* Adjust as needed */
-}
-
-.scraped-data-box {
-  height: auto;
-  max-height: 100%;  /* Optional: adjust based on your container size */
-  padding: 10px;
-}
