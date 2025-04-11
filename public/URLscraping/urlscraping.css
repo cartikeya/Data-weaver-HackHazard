@@ -422,7 +422,7 @@ header {
   overflow: hidden;
   white-space: pre-wrap; /* Prevent wrapping */
   /* border-right: 2px solid black; */
-  animation: typing-line 4s steps(40) 1s 1 normal both, blink 0.5s step-end infinite; /* Typing animation */
+  animation: typing-line 0.5s steps(2) 0.5s 1 normal both, blink 0.2s step-end infinite; /* Typing animation */
 }
 
 .typing-line:nth-child(1) {
@@ -430,11 +430,11 @@ header {
 }
 
 .typing-line:nth-child(2) {
-  animation-delay: 4s; /* Delay for the second line */
+  animation-delay: 1s; /* Delay for the second line */
 }
 
 .typing-line:nth-child(3) {
-  animation-delay: 8s; /* Delay for the third line */
+  animation-delay: 2s; /* Delay for the third line */
 }
 
 @keyframes typing-line {
@@ -468,6 +468,24 @@ header {
 }
 
 
+.restart-btn{
+  margin-top: 30px; 
+  
+  background-color: white;
+  color: white;
+  
+  border-radius: 999px; 
+
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.restart-btn:hover{
+
+  filter: invert(1);
+
+ 
+}
 
 
 
