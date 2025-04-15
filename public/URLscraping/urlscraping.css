@@ -1,0 +1,577 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Doto:wght@600&family=Montserrat:ital,wght@0,100..900;1,100..900&family=New+Amsterdam&family=Roboto:wght@400;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: #f9f9f9; 
+  display: flex;
+  justify-content: center; 
+  align-items: center; 
+  min-height: 100vh; 
+  margin: 0;
+}
+
+.container {
+  width: 100%;
+  max-width: 1000px; 
+  background: #ffffff; 
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+  border-radius: 12px;
+  padding: 20px 30px; 
+  margin: 0; 
+}
+
+label {
+  font-size: 14px;
+  font-weight: 500; 
+  display: block;
+  margin-bottom: 8px;
+  color: #555; 
+}
+
+input[type="text"] {
+  width: 100%;
+  height: 40px;
+  border: 1px solid #ccc; 
+  border-radius: 8px;
+  background-color: #f7f7f7;
+  padding-left: 12px;
+  font-size: 14px;
+  color: #333;
+  transition: border-color 0.3s;
+}
+
+
+input[type="text"]:focus {
+  border-color: #000000;
+  background-color: #ffffff;
+  box-shadow: 0 0 5px rgb(60, 60, 60); 
+  outline: none;
+}
+
+.slider-container {
+  display: flex;
+  align-items: center;
+  gap: 15px; 
+  margin-top: 20px; 
+}
+
+.slider-label {
+  font-size: 16px;
+  font-weight: bold;
+  color: #333;
+  background: #f4f4f4;
+  padding: 6px 10px;
+  border-radius: 8px;
+  min-width: 40px; 
+  text-align: center; 
+}
+
+
+
+input[type="range"] {
+  /* -webkit-appearance: none; */
+  width: 100%; 
+  height: 6px; 
+  background: #d9d9d9; 
+  border-radius: 10px;
+  outline: none;
+  transition: background 0.3s;
+  cursor: pointer;
+}
+
+
+input[type="range"]::-webkit-slider-runnable-track {
+    width: 100%;
+    height: 5px;
+    border-radius: 10px;
+}
+
+
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 16px;
+  height: 16px;
+  background: #5f5f5f; 
+  border: 2px solid #ffffff; 
+  border-radius: 50%;
+  cursor: pointer;
+  margin-top: -5px;
+  position: relative;
+}
+
+
+
+
+
+.btn {
+  margin-top: 30px; 
+  padding: 10px 20px;
+  background-color: #0d0d0d;
+  color: white;
+  border: none;
+  border-radius: 999px; 
+  font-size: 16px; 
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s, opacity 0.3s;
+}
+
+.btn:hover {
+  background-color: #ffffff; 
+  color: #000000;/* Darker green on hover */
+  opacity: 0.8;
+  border: 2px solid black;
+}
+
+
+
+.stop-btn {
+  margin-top: 30px; 
+  width: 50px; 
+  height: 50px;
+  background-color: #0d0d0d;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  font-size: 20px; 
+  display: flex; 
+  justify-content: center; 
+  align-items: center; 
+  cursor: pointer;
+  transition: background-color 0.3s, opacity 0.3s;
+  float: right; 
+}
+
+.stop-btn:hover {
+  background-color: #ffffff; 
+  color: #000000;/* Darker green on hover */
+  opacity: 0.8;
+  border: 2px solid black;
+}
+
+
+.outputbox {
+  margin-top: 20px;
+  padding: 15px;
+  background-color: #f0f0f0;
+  border-radius: 10px;
+  font-family: Arial, sans-serif;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* scraped-data */
+
+.scraped-data-content {
+    margin-top: 20px;
+    padding: 10px;
+    padding-bottom: 30px;
+}
+
+
+
+
+.scraped-container {
+  width: 100%;
+  max-width: 1000px; 
+  background: #ffffff; 
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+  border-radius: 12px;
+  padding: 20px 30px; 
+  margin: 100px;  
+}
+
+
+
+.ai-prompt-container h2 {
+  font-size: 20px;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.single-line {
+  width: 100%;
+  height: 40px; 
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 10px;
+  font-size: 16px;
+  font-family: 'Inter', sans-serif;
+  resize: none; 
+  overflow: hidden; 
+  white-space: nowrap; 
+  text-overflow: ellipsis; 
+  box-sizing: border-box;
+}
+
+.single-line:focus {
+  border-color: #000;
+  outline: none;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+
+
+
+.suggestions-box {
+  position: relative;
+  margin-top: 5px;
+  display: flex;
+  flex-wrap: wrap; /* Allow buttons to wrap to the next line */
+  gap: 10px; /* Add spacing between buttons */
+}
+.suggestions-box button {
+  padding: 10px 15px;
+  font-size: 14px;
+  color: #0c0808;
+  background-color: #f3f3f3;
+  
+  border-radius: 90px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  
+}
+.suggestions-box button:hover {
+  background-color: #ffffff;
+  color: #000000;
+  border: 2px solid black;
+}
+
+
+.suggestions-box div {
+  padding: 10px;
+  cursor: pointer;
+  font-size: 14px;
+  color: #333;
+  transition: background-color 0.2s ease;
+}
+
+.suggestions-box div:hover {
+  background-color: #f0f0f0;
+}
+
+
+.scroll {
+  color: black;
+/* ^color of the text in the textbox  */
+  width: 100%;
+  height:250px;
+  background-color: white;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  padding: 20px;
+}
+
+.text {
+  width: 100%;
+  font-family: Tahoma;
+  font-size: 13px;
+  text-align: left;
+  margin: 3px auto auto 6px;
+}
+
+header {
+  color: black;
+  display: inline-block;
+  line-break: 0px;
+  font-family: Tahoma;
+  background: rgb(116, 116, 116);
+  background: linear-gradient(90deg, rgb(255, 255, 255) 0%, rgba(255, 208, 227, 1) 53%, rgba(255, 144, 190, 1) 100%);
+  border-radius: 100%;
+  width: 81px;  
+  height: 20px;
+
+  text-align: center;
+  padding: 4px;
+  font-size: 14px;
+  margin: 3px 4px 0px;
+}
+
+::-webkit-scrollbar {
+  width: 16px;
+}
+
+::-webkit-scrollbar:horizontal {
+  height: 17px;
+}
+
+::-webkit-scrollbar-corner {
+  background: #ffffff;
+}
+
+::-webkit-scrollbar-track:vertical {
+  background: linear-gradient(90deg, #ffffff, #ffffff 20%);
+  border: 1PX solid black;
+  border-radius: 300px;
+  
+}
+
+::-webkit-scrollbar-thumb {
+  border: 1px solid #000000;
+  border-radius: 3px;
+  background-color: #eee;
+  border-radius: 300px;
+}
+
+
+
+
+::-webkit-scrollbar-button:horizontal:start:decrement,
+::-webkit-scrollbar-button:vertical:end:increment,
+::-webkit-scrollbar-button:vertical:start:decrement {
+  display: block;
+}
+
+::-webkit-scrollbar-button:vertical {
+  height: 100%;
+}
+
+::-webkit-scrollbar-button:vertical:start:decrement {
+  background: white;
+  background-image: url("https://cdn.discordapp.com/attachments/904308736712138793/1001299199633141851/download.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  -moz-background-size: cover;
+  -webkit-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+::-webkit-scrollbar-button:vertical:start:increment {
+  display: none;
+}
+
+::-webkit-scrollbar-button:vertical:end:decrement {
+  display: none;
+}
+
+::-webkit-scrollbar-button:vertical:end:increment {
+  background: white;
+  background-image: url("https://cdn.discordapp.com/attachments/904308736712138793/1001299200052576387/87ae92e1-3894-4469-b1b9-aedf5f04975c.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  -moz-background-size: cover;
+  -webkit-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+@-moz-keyframes scroll-left {
+  0% {
+    -moz-transform: translateX(100%);
+  }
+
+  100% {
+    -moz-transform: translateX(-100%);
+  }
+}
+
+@-webkit-keyframes scroll-left {
+  0% {
+    -webkit-transform: translateX(100%);
+  }
+
+  100% {
+    -webkit-transform: translateX(-100%);
+  }
+}
+
+@keyframes scroll-left {
+  0% {
+    -moz-transform: translateX(100%);
+    -webkit-transform: translateX(100%);
+    transform: translateX(100%);
+  }
+
+  100% {
+    -moz-transform: translateX(-100%);
+    -webkit-transform: translateX(-100%);
+    transform: translateX(-100%);
+  }
+}
+
+
+  
+.typing-effect {
+  display: inline-block;
+  white-space: pre-wrap; /* Allows text to wrap and preserves line breaks */
+  overflow: hidden;    
+  /* border-right: 2px solid black; Simulate the cursor */
+  
+}
+
+.typing-line{
+  display: block; /* Ensure each line is treated as a block */
+  overflow: hidden;
+  white-space: pre-wrap; /* Prevent wrapping */
+  /* border-right: 2px solid black; */
+  animation: typing-line 0.5s steps(2) 0.5s 1 normal both, blink 0.2s step-end infinite; /* Typing animation */
+}
+
+.typing-line:nth-child(1) {
+  animation-delay: 0s; /* Delay for the first line */
+}
+
+.typing-line:nth-child(2) {
+  animation-delay: 1s; /* Delay for the second line */
+}
+
+.typing-line:nth-child(3) {
+  animation-delay: 2s; /* Delay for the third line */
+}
+
+@keyframes typing-line {
+  from {
+    width: 0%;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+@keyframes blink {
+  from,to {
+    border-color: transparent;
+  }
+  50% {
+    border-color: black;
+  }
+}
+    
+
+.scroll {
+  overflow-y: auto;
+  max-height: 400px;  /* Adjust as needed */
+}
+
+.scraped-data-box {
+  height: auto;
+  max-height: 100%;  /* Optional: adjust based on your container size */
+  padding: 10px;
+}
+
+
+.restart-btn{
+  margin-top: 30px; 
+  
+  background-color: white;
+  color: white;
+  
+  border-radius: 999px; 
+
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.restart-btn:hover{
+
+  filter: invert(1);
+
+ 
+}
+
+
+
+.downloadbutton{
+  padding: 3px;
+  border-radius: 50px;
+  transition: 0.5s ease;
+}
+
+
+.downloadbutton:hover{
+  background-color: rgb(169, 169, 169);
+  
+}
+
+a{
+  cursor: pointer;
+}
+.outputbox{
+  overflow-y: auto;
+  width: 100%;
+  height: 300px;
+  background-color: white;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  padding: 20px;
+  display: none;
+}
+
+
+.checkbox-container {
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+  color: #333;
+}
+
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.checkbox-input {
+  display: none;
+}
+
+.custom-checkbox {
+  width: 20px;
+  height: 20px;
+  border: 2px solid #333;
+  border-radius: 4px;
+  margin-right: 10px;
+  display: inline-block;
+  position: relative;
+  background-color: #fff;
+  transition: background-color 0.3s, border-color 0.3s;
+}
+
+.checkbox-input:checked + .custom-checkbox {
+  background-color: #333;
+  border-color: #333;
+}
+
+.checkbox-input:checked + .custom-checkbox::after {
+  content: '';
+  position: absolute;
+  top: 4px;
+  left: 7px;
+  width: 6px;
+  height: 10px;
+  border: solid #fff;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
