@@ -32,6 +32,15 @@ app.get("/urlscrape", (req, res) => {
 app.get("/promptscrape", (req, res) => {
     res.render("./promptscraping/promptscraping"); 
 });
+app.get("/datasettext", (req, res) => {
+    res.render("./Dataset/text.ejs"); 
+});
+app.get("/datasetimage", (req, res) => {
+    res.render("./Dataset/image.ejs"); 
+});
+app.get("/datasetaudio", (req, res) => {
+    res.render("./Dataset/audio.ejs"); 
+});
 
 app.get("/scrapedData", (req, res) => {
     const { data, url } = req.query;

@@ -1,0 +1,233 @@
+.sub-nav-bar {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    background-color: #f7f7f7;
+    padding: 12px;
+    
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    position: sticky;
+    top: 100px; /* Adjust based on your navbar height */
+    z-index: 98;
+    border: 1px solid #000000;
+    border-radius: 20px;
+    
+
+    max-width: 1100px;   /* Controls width on large screens */
+    margin: 0 auto;      /* Centers it horizontally */
+    width: 90%; 
+}
+
+.sub-nav-btn {
+    background-color: white;
+    border: 1px solid #ccc;
+    padding: 8px 20px;
+    border-radius: 999px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: 0.2s ease;
+    text-decoration: none;
+    color: #000000;
+}
+
+.sub-nav-btn:hover,
+.sub-nav-btn.active {
+    background-color: #0d0d0d;
+    color: white;
+    border-color: transparent;
+}
+
+.outer-text-container {
+    background-color: #d7d7d7; /* Light grey */
+    padding: 30px;
+    border-radius: 20px;
+    margin-top: 120px;
+
+    max-width: 1100px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 90%;
+
+    border: 1px solid black;
+}
+
+.dataset-heading {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.inner-text-container {
+    background-color: white;
+    border: 1px solid black;
+    padding: 20px;
+    border-radius: 15px;
+}
+
+.dataset-label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    font-size: 16px;
+    color: #333;
+}
+
+.dataset-input {
+    width: 100%;
+    padding: 6px 12px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 30px;
+    margin-top: 4px;
+    box-sizing: border-box;
+}
+
+.upload-docx-label {
+    display: inline-block;
+    padding: 10px 18px;
+    font-size: 14px;
+    background-color: #0d0d0d;
+    color: white;
+    border-radius: 40px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 12px;
+}
+
+.upload-docx-label:hover {
+    background-color: #333;
+}
+
+
+.docx-preview-container {
+    margin-top: 16px;
+    padding: 16px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #ffffff;
+}
+
+.docx-content-box {
+    white-space: pre-wrap;
+    color: #444;
+    font-size: 15px;
+    line-height: 1.5;
+}
+.parameter-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.parameter-label {
+    font-size: 16px;
+    font-weight: 500;
+    color: #555;
+    flex: 1;
+    min-width: 150px;
+}
+
+.parameter-slider {
+    flex: 2;
+    width: 100%;
+    max-width: 700px;
+    appearance: none;
+    height: 6px;
+    background: #d9d9d9;
+    border-radius: 10px;
+    outline: none;
+    transition: background 0.3s;
+}
+
+.parameter-slider::-webkit-slider-thumb {
+    appearance: none;
+    width: 14px;
+    height: 14px;
+    background: #0d0d0d;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.parameter-slider::-moz-range-thumb {
+    width: 14px;
+    height: 14px;
+    background: #0d0d0d;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+
+.entry-dropdown {
+    padding: 8px 12px;
+    font-size: 15px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    background-color: white;
+    color: #333;
+    cursor: pointer;
+    appearance: none; /* Remove default arrow for consistent style */
+    transition: border-color 0.3s ease;
+    width: 100%;
+    max-width: 150px;
+}
+
+.entry-dropdown:hover {
+    border-color: #888;
+}
+
+.entry-dropdown:focus {
+    outline: none;
+    border-color: #868686;
+    box-shadow: 0 0 0 2px rgba(13, 13, 13, 0.2);
+}
+.entry-length-item {
+    justify-content: flex-start !important;
+    gap: 10px;
+}
+
+.entry-length-item .parameter-label {
+    min-width: unset;
+    flex: unset;
+}
+
+.entry-length-item .entry-dropdown {
+    width: auto;
+    max-width: 200px;
+}
+
+.start-button-wrapper {
+    margin-top: 24px;
+    text-align: right;
+}
+
+.start-btn {
+    background-color: #0d0d0d;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 99px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.start-btn:hover {
+    background-color: #333;
+}
+
+.greyscale-item {
+    justify-content: flex-start !important;
+    gap: 10px;
+}
+
+.greyscale-item .parameter-label {
+    min-width: unset;
+    flex: unset;
+}
+
+.greyscale-item .entry-dropdown {
+    width: auto;
+    max-width: 200px;
+}
