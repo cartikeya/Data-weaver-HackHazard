@@ -231,3 +231,13 @@
     width: auto;
     max-width: 200px;
 }
+
+
+.image-thumb {
+    width: 120px;
+    height: auto;
+    margin: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    object-fit: cover;
+}
