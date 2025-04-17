@@ -97,7 +97,7 @@ scrapeButton.addEventListener('click', async () => {
         // Display the results in the output panel
         const outputPanel = document.querySelector('.output-panel');
         const outputContent = document.getElementById('outputContent');
-        outputContent.innerHTML = `<pre>${result.output}</pre>`;
+        outputContent.innerHTML = `<pre>${formatBoldText(result.output)}</pre>`;
         outputPanel.style.display = 'block';
         questionPanel.style.display = 'block';
         originalContainer.style.display = 'none';
@@ -159,3 +159,20 @@ slider.addEventListener("input", function() {
     // Apply dynamic background
     slider.style.background = `linear-gradient(to right,rgb(0, 0, 0) 0%,rgb(71, 73, 71) ${value}%, #d9d9d9 ${value}%)`;
 });
+
+
+
+
+
+
+
+
+function formatBoldText(text) {
+    return text
+        .replace(/\*\*(.*?)\*\*/g, '<br><strong>$1</strong>') // Make bold text appear on a new line
+        .replace(/\*(?!\*)(.*?)\n?/g, '<br>• $1'); // Convert single * to bullet point with line break
+}
+
+
+
+// document.getElementById("outputContent").innerHTML = formatBoldText(yourGeneratedText);
