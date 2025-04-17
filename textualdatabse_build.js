@@ -1,3 +1,4 @@
+const AdmZip = require('adm-zip');
 const { OpenAI } = require('openai');
 const fs = require('fs');
 const path = require('path');
@@ -66,9 +67,19 @@ async function convertText_prompt(userPrompt) {
     paragraphs.forEach((para, i) => {
       fs.writeFileSync(path.join(OUTPUT_DIR, `para_${i + 1}.txt`), para, 'utf-8');
     });
-
+    
     console.log(`✅ Saved ${paragraphs.length} paragraphs to ./output_dataset/`);
-    return paragraphs.join('\n\n%}-%{%'); // return raw if needed
+    
+    // ✅ Create ZIP after saving text files
+    const zip = new AdmZip();
+    zip.addLocalFolder(OUTPUT_DIR);
+    const zipDir = path.join(process.cwd(), 'public/output_dataset');
+    if (!fs.existsSync(zipDir)) fs.mkdirSync(zipDir, { recursive: true });
+    const zipPath = path.join(zipDir, 'my_file.zip');
+    zip.writeZip(zipPath);
+    console.log(`📦 Zipped dataset saved to ${zipPath}`);
+    
+    return paragraphs.join('\n\n%}-%{%');
   } catch (err) {
     throw new Error(`Error: ${err.message}`);
   }

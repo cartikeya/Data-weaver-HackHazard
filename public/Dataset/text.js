@@ -22,13 +22,28 @@ document.querySelector(".start-btn").addEventListener("click", function () {
     const entryLength = document.getElementById("entryLength").value;
     const docxContent = document.getElementById("docxContent").innerText;
 
-    // You can now send this data to your backend via fetch/POST
-    console.log("Prompt:", prompt);
-    console.log("Docx Content:", docxContent);
-    console.log("Vocabulary Richness:", vocabRichness);
-    console.log("Dataset Size:", datasetSize);
-    console.log("Strength:", strength);
-    console.log("Entry Length:", entryLength);
+    const fullInput = `${prompt} + ${vocabRichness} + ${datasetSize} + ${strength} + ${entryLength}`;
+    console.log("Combined Input:", fullInput);
 
-    alert("Dataset cooking started! (check console for now)");
+    // Navigate to output page
+    const encodedInput = encodeURIComponent(fullInput);
+    fetch('/generate-text-dataset', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ prompt: fullInput })
+      })
+      .then(res => res.json())
+      .then(data => {
+        if (data.success) {
+          window.location.href = '/Dataset/output.html';
+        } else {
+          alert("Failed to generate dataset.");
+        }
+      })
+      .catch(err => {
+        console.error(err);
+        alert("An error occurred.");
+      });
 });

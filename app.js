@@ -6,7 +6,7 @@ const scrapeWebsite = require('./scrapeWords-puppeteer'); // Import the scraping
 const convertText = require('./textprocessai');
 const bodyParser = require('body-parser');
 const convertText_prompt = require('./scrapingwithprompt_script');
-
+const convertText_textdataset = require('./textualdatabse_build');
 
 
 app.use(express.json()); 
@@ -128,3 +128,21 @@ app.post('/process', async (req, res) => {
         res.status(500).json({ error: "Groq API failed" });
     }
 });
+
+app.post('/generate-text-dataset', async (req, res) => {
+    const { prompt } = req.body;
+
+    if (!prompt) {
+        return res.status(400).json({ error: "Prompt is required" });
+    }
+
+    try {
+        await convertText_textdataset(prompt);  // This runs textualdatabse_build.js logic
+        console.log("Dataset generated successfully.");
+        res.json({ success: true });
+    } catch (error) {
+        console.error("Dataset generation failed:", error);
+        res.status(500).json({ success: false, error: error.message });
+    }
+});
+app.use('/output_dataset', express.static(path.join(__dirname, 'output_dataset')));
