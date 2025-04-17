@@ -159,3 +159,16 @@ slider.addEventListener("input", function() {
     // Apply dynamic background
     slider.style.background = `linear-gradient(to right,rgb(0, 0, 0) 0%,rgb(71, 73, 71) ${value}%, #d9d9d9 ${value}%)`;
 });
+// Function to simulate loading time (can replace with actual data loading logic)
+function simulateLoading() {
+    // Set a timeout to simulate loading process (e.g., fetching data, rendering content)
+    setTimeout(function() {
+        // Hide the loader after the "loading" time is finished
+        document.getElementById('loader').style.display = 'none';
+        // Show the content once loading is done
+        document.getElementById('content').style.display = 'block';
+    }, 3000); // Simulating a 3-second load time (adjust as needed)
+}
+
+// Call the simulateLoading function when the page is ready
+window.onload = simulateLoading;
