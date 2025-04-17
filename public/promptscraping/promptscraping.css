@@ -178,27 +178,6 @@ input[type="range"]::-webkit-slider-thumb {
 }
 
 
-
-.output-panel {
-  width: 100%;
-  max-width: 700px;
-  max-height: 400px;
-  overflow-y: auto;
-  overflow-x: hidden;
-
-  background-color: #f9f9f9;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  padding: 15px;
-  display: none;
-
-  word-wrap: break-word;
-  overflow-wrap: break-word;
-  white-space: pre-wrap;
-  line-break: anywhere; /* 💡 Important for super long words */
-}
-
-/* Parent container for the two sections */
 .content-container {
   display: flex;
   justify-content: space-between;
@@ -215,6 +194,31 @@ input[type="range"]::-webkit-slider-thumb {
   border-radius: 8px;
   background-color: #f9f9f9;
   display: none;
+}
+
+.output-panel {
+  width: 100%;
+  max-width: 700px;
+  max-height: 400px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  background-color: #f9f9f9;
+  /* border: 1px solid #ccc; */
+  border-radius: 8px;
+  padding: 15px;
+  display: block;
+
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  line-break: anywhere;
+}
+
+#outputContent * {
+  white-space: normal !important;
+  word-wrap: break-word !important;
+  overflow-wrap: break-word !important;
+  line-break: anywhere;
 }
 
 
