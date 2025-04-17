@@ -130,14 +130,15 @@ app.post('/process', async (req, res) => {
 });
 
 app.post('/generate-text-dataset', async (req, res) => {
-    const { prompt } = req.body;
+    const { prompt, docx } = req.body;
+    
 
     if (!prompt) {
         return res.status(400).json({ error: "Prompt is required" });
     }
 
     try {
-        await convertText_textdataset(prompt);  // This runs textualdatabse_build.js logic
+        await convertText_textdataset(`${prompt}\n\n${docx}`);  // This runs textualdatabse_build.js logic
         console.log("Dataset generated successfully.");
         res.json({ success: true });
     } catch (error) {

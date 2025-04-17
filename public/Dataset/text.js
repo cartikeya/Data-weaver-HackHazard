@@ -22,11 +22,21 @@ document.querySelector(".start-btn").addEventListener("click", function () {
     const entryLength = document.getElementById("entryLength").value;
     const docxContent = document.getElementById("docxContent").innerText;
 
-    const fullInput = `${prompt} + ${vocabRichness} + ${datasetSize} + ${strength} + ${entryLength}`;
+    const fullInput = `
+        Prompt: ${prompt}
+
+        Docx Content: ${docxContent}
+
+        Vocabulary Richness: ${vocabRichness}
+        Dataset Size: ${datasetSize}
+        Strength: ${strength}
+        Entry Length: ${entryLength}
+    `;
     console.log("Combined Input:", fullInput);
+    console.log("Docx content: ",docxContent);
 
     // Navigate to output page
-    const encodedInput = encodeURIComponent(fullInput);
+    // const encodedInput = encodeURIComponent(fullInput);
     fetch('/generate-text-dataset', {
         method: 'POST',
         headers: {
