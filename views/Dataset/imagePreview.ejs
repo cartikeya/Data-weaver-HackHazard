@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Image Dataset Preview</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding: 20px;
+            margin: 0;
+            background-color: #f9f9f9;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #333;
+        }
+        .download-btn {
+            display: block;
+            width: max-content;
+            margin: 0 auto 30px;
+            background-color: #0d0d0d;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background 0.3s ease;
+        }
+        .download-btn:hover {
+            background-color: #333;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 16px;
+            padding: 0 10px;
+        }
+        .grid img {
+            width: 100%;
+            height: auto;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+        .grid img:hover {
+            transform: scale(1.03);
+        }
+    </style>
+</head>
+<body>
+    <h1>Image Dataset Preview</h1>
+    <a href="/download-image-dataset" class="download-btn">Download All Images (ZIP)</a>
+    <div class="grid">
+        <% images.forEach(function(image) { %>
+            <img src="/image_dataset/<%= image %>" alt="dataset image" />
+        <% }); %>
+    </div>
+</body>
+</html>

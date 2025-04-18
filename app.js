@@ -7,6 +7,10 @@ const convertText = require('./textprocessai');
 const bodyParser = require('body-parser');
 const convertText_prompt = require('./scrapingwithprompt_script');
 const convertText_textdataset = require('./textualdatabse_build');
+const multer = require('multer');
+const upload = multer({ dest: 'uploads/' }); // or customize filename/destination
+const AdmZip = require('adm-zip');
+const fs = require('fs');
 
 
 app.use(express.json()); 
@@ -16,6 +20,7 @@ app.set("view engine", "ejs");
 
 app.use(express.static(path.join(__dirname, 'public')));
 app.set('views', path.join(__dirname, 'views'));
+app.use('/image_dataset', express.static(path.join(__dirname, 'downloaded_images')));
 
 app.use(express.static("src")); 
 app.use('/bootstrap', express.static(__dirname + '/node_modules/bootstrap/dist'));
@@ -40,6 +45,12 @@ app.get("/datasetimage", (req, res) => {
 });
 app.get("/datasetaudio", (req, res) => {
     res.render("./Dataset/audio.ejs"); 
+});
+app.get("/view-image-dataset", (req, res) => {
+    const fs = require("fs");
+    const imagesDir = path.join(__dirname, "downloaded_images");
+    const images = fs.readdirSync(imagesDir).filter(file => /\.(jpg|jpeg|png|gif)$/i.test(file));
+    res.render("Dataset/imagePreview", { images });
 });
 
 app.get("/scrapedData", (req, res) => {
@@ -147,3 +158,80 @@ app.post('/generate-text-dataset', async (req, res) => {
     }
 });
 app.use('/output_dataset', express.static(path.join(__dirname, 'output_dataset')));
+
+
+app.post('/generate-image-dataset', upload.single('image'), async (req, res) => {
+    const imageFile = req.file;
+    const { prompt, accuracy, datasetSize, greyscale, strength } = req.body;
+
+    if (!imageFile) {
+        return res.status(400).json({ success: false, error: "Image file is required." });
+    }
+
+    const path = require("path");
+    const fs = require("fs");
+    const { exec } = require("child_process");
+
+    const imagePath = path.join(__dirname, 'uploads', 'sampleimage.jpg');
+
+    // Rename/move the uploaded file to 'sampleimage.jpg'
+    fs.renameSync(imageFile.path, imagePath);
+
+    const { convertImage_prompt } = require('./imagedataset_builder');
+    try {
+        await convertImage_prompt(prompt, imagePath, accuracy, datasetSize, greyscale, strength);
+        console.log("✅ Query generated and saved to tempsampleimageQuery.txt");
+
+        // Call Python script to scrape images using the generated query
+        exec("python3 google_imagescrape.py", (error, stdout, stderr) => {
+            if (error) {
+                console.error(`❌ Python Error: ${error.message}`);
+                return res.status(500).json({ success: false, error: error.message });
+            }
+            if (stderr) {
+                console.warn(`⚠️ Python Warning: ${stderr}`);
+            }
+
+            console.log(`✅ Python Output:\n${stdout}`);
+            return res.json({ success: true, message: "Image scraping done!" });
+        });
+    } catch (err) {
+        console.error("❌ Error running image dataset builder:", err);
+        return res.status(500).json({ success: false, error: err.message });
+    }
+});
+
+app.get('/download-image-dataset', (req, res) => {
+    const zip = new AdmZip();
+    const folderPath = path.join(__dirname, 'downloaded_images');
+
+    if (!fs.existsSync(folderPath)) {
+        return res.status(404).send("No images found to zip.");
+    }
+
+    zip.addLocalFolder(folderPath);
+    const zipPath = path.join(__dirname, 'public', 'image_dataset.zip');
+    zip.writeZip(zipPath);
+
+    res.download(zipPath, 'image_dataset.zip', (err) => {
+        if (err) {
+            console.error("Error sending zip:", err);
+            res.status(500).send("Could not download ZIP file.");
+        } else {
+            fs.unlink(zipPath, () => {}); // Clean up after download
+        }
+    });
+});
+
+app.get('/check-image-dataset', (req, res) => {
+    const fs = require('fs');
+    const path = require('path');
+    const imagesDir = path.join(__dirname, 'downloaded_images');
+
+    if (!fs.existsSync(imagesDir)) {
+        return res.json({ available: false });
+    }
+
+    const files = fs.readdirSync(imagesDir).filter(file => /\.(jpg|jpeg|png)$/i.test(file));
+    res.json({ available: files.length > 0 });
+});
