@@ -102,28 +102,46 @@
     <!-- Loads jQuery library -->
     </script>
     <script>
-      document.getElementById("jsonButton").addEventListener("click", async function () {
-        const promptText = document.getElementById("url").value;
-        try {
-          const response = await fetch("/convert-to-json", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json"
-            },
-            body: JSON.stringify({ prompt: promptText })
-          });
-          const blob = await response.blob();
-          const url = window.URL.createObjectURL(blob);
-          const a = document.createElement("a");
-          a.href = url;
-          a.download = "output.json";
-          a.click();
-          window.URL.revokeObjectURL(url);
-        } catch (error) {
-          console.error("Error converting to JSON:", error);
-          alert("Failed to convert to JSON.");
-        }
-      });
+      
+      document.getElementById("jsonButton").addEventListener("click", async () => {
+  const outputText = document.getElementById("outputContent").innerText;
+
+  if (!outputText.trim()) {
+    alert("No scraped content available to convert.");
+    return;
+  }
+
+  try {
+    const response = await fetch("/convert-to-json", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ output: outputText })
+    });
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.error("❌ Server Error:", errorText);
+      alert("❌ Error: Server returned an unexpected response.");
+      return;
+    }
+
+    const blob = await response.blob();
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "output.json";
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    window.URL.revokeObjectURL(url);
+  } catch (error) {
+    console.error("❌ Error generating JSON:", error);
+    alert("An error occurred while generating the JSON.");
+  }
+});
+
     </script>
 </script>
 </body>
