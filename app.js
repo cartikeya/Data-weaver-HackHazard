@@ -1,5 +1,6 @@
 const express = require("express");
 const app = express();
+
 const port = 8080;
 const path = require('path');
 const scrapeWebsite = require('./scrapeWords-puppeteer'); // Import the scraping function
@@ -81,6 +82,46 @@ app.get("/scrape", async (req, res) => {
         res.status(500).send("Failed to scrape the website");
     }
 });
+
+app.post('/convert-to-json', async (req, res) => {
+    const { prompt } = req.body;
+
+    if (!prompt) {
+        return res.status(400).json({ error: "Prompt is required" });
+    }
+
+    try {
+        const result = await convertText_prompt(prompt);
+        console.log("🧠 Raw LLM Output:", result);
+
+        // Attempt to clean and extract a JSON object from result
+        let jsonStringRaw = result.trim();
+
+        // If the response has extra explanation or intro, remove it
+        const jsonMatch = jsonStringRaw.match(/{[\s\S]*}/); // Match the first JSON object
+        if (!jsonMatch) {
+            console.error("❌ No JSON object found in LLM response.");
+            console.log("Raw LLM Output for debugging:", jsonStringRaw); // Log the raw output for debugging
+            return res.status(500).json({ error: "Response doesn't contain JSON." });
+        }
+
+        jsonStringRaw = jsonMatch[0]; // Extract the matched JSON string
+
+        try {
+            const json = JSON.parse(jsonStringRaw);
+            const jsonString = JSON.stringify(json, null, 2);
+            res.setHeader('Content-Disposition', 'attachment; filename=output.json');
+            res.setHeader('Content-Type', 'application/json');
+            res.send(jsonString);
+        } catch (parseError) {
+            console.error("❌ Failed to parse JSON:", parseError.message);
+            return res.status(500).json({ error: "Invalid JSON format returned." });
+        }
+            } catch (error) {
+                console.error("Error converting to JSON:", error.message);
+                res.status(500).json({ error: "Failed to convert prompt to JSON." });
+            }
+        });
 app.post('/scrapePrompt', async (req, res) => {
     const { prompt } = req.body;
 
@@ -260,3 +301,4 @@ app.post('/transcribe-audio', upload.single('audio'), async (req, res) => {
       res.status(500).json({ error: 'Failed to transcribe audio.' });
     }
   });
+  
