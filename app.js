@@ -11,6 +11,8 @@ const multer = require('multer');
 const upload = multer({ dest: 'uploads/' }); // or customize filename/destination
 const AdmZip = require('adm-zip');
 const fs = require('fs');
+const { translateAudio } = require('./audioprocess');
+
 
 
 app.use(express.json()); 
@@ -242,3 +244,19 @@ app.get('/check-image-dataset', (req, res) => {
 
 
 
+app.post('/transcribe-audio', upload.single('audio'), async (req, res) => {
+    const audioFile = req.file;
+  
+    if (!audioFile) {
+      return res.status(400).json({ error: 'No audio file uploaded.' });
+    }
+  
+    try {
+      const transcription = await translateAudio(audioFile.path);
+      fs.unlinkSync(audioFile.path); // Clean up the uploaded file
+      res.json({ transcription });
+    } catch (error) {
+      console.error('Error transcribing audio:', error.message);
+      res.status(500).json({ error: 'Failed to transcribe audio.' });
+    }
+  });

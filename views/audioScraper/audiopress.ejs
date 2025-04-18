@@ -151,6 +151,7 @@
     const sliderValue = document.getElementById('volumeValue');
     const roleButtons = document.querySelectorAll('.role-btn');
     const startScrapingBtn = document.getElementById('startScraping');
+    const outputContent = document.getElementById('outputContent');
     let selectedRole = null;
 
     // Handle slider value display
@@ -188,21 +189,33 @@
     });
 
     // Handle scraping start
-    startScrapingBtn.addEventListener('click', () => {
-      const prompt = document.getElementById('url').value;
-      const threshold = slider.value;
-      const file = audioUpload.files[0];
+    startScrapingBtn.addEventListener('click', async () => {
+    const file = audioUpload.files[0];
+    if (!file) {
+      alert("Please upload an audio file.");
+      return;
+    }
 
-      console.log('--- Audio Scraper Values ---');
-      console.log('Prompt:', prompt);
-      console.log('Confidence Threshold:', threshold);
-      console.log('Selected Role:', selectedRole || 'None');
-      if (file) {
-        console.log('Audio File:', file.name, `(${file.type}, ${file.size} bytes)`);
-      } else {
-        console.log('Audio File: None');
+    const formData = new FormData();
+    formData.append('audio', file);
+
+    try {
+      const response = await fetch('/transcribe-audio', {
+        method: 'POST',
+        body: formData,
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to transcribe audio.');
       }
-    });
+
+      const data = await response.json();
+      outputContent.textContent = data.transcription || 'No transcription available.';
+    } catch (error) {
+      console.error('Error:', error);
+      outputContent.textContent = 'Error transcribing audio.';
+    }
+  });
   </script>
 </body>
 </html>
