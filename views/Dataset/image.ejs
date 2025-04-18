@@ -67,7 +67,8 @@
             <input type="text" id="datasetPrompt" class="dataset-input" placeholder="enter your dream dataset" />
 
             <label for="imageUpload" class="upload-docx-label">Upload Images</label>
-            <input type="file" id="imageUpload" accept="image/*" multiple style="display: none;">
+            <input type="file" id="imageUpload" accept="image/*" style="display: none;">
+            <a id="downloadImageLink" style="display: none;" download="sampleimage.jpg">Download Uploaded Image</a>
 
             <div id="imagePreview" class="docx-preview-container" style="display: none;">
                 <p><strong>Preview:</strong></p>
@@ -99,6 +100,7 @@
             </div>
             <div class="start-button-wrapper">
                 <button class="start-btn">START COOKING</button>
+                <a href="/view-image-dataset" id="viewDatasetBtn" class="button-primary w-button" style="margin-top: 20px;display: none;">View Dataset</a>
             </div>
         </div>
     </div>
