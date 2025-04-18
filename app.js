@@ -30,6 +30,10 @@ app.get("/", (req, res) => {
     res.render("index"); 
 });
 
+app.get('/audiopress', (req, res) => {
+    res.render('./audioScraper/audiopress'); // OR 'audio/audioscraper' if it's inside views/audio/
+});
+
 app.get("/urlscrape", (req, res) => {
     res.render("./URLscraping/urlscraping"); 
 });
@@ -235,3 +239,6 @@ app.get('/check-image-dataset', (req, res) => {
     const files = fs.readdirSync(imagesDir).filter(file => /\.(jpg|jpeg|png)$/i.test(file));
     res.json({ available: files.length > 0 });
 });
+
+
+
