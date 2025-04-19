@@ -203,22 +203,25 @@ input[type="range"]::-webkit-slider-thumb {
   overflow-y: auto;
   overflow-x: hidden;
   background-color: #f9f9f9;
-  /* border: 1px solid #ccc; */
+  border: 1px solid #000000;
   border-radius: 8px;
   padding: 15px;
   display: block;
+
 
   white-space: pre-wrap;
   word-wrap: break-word;
   overflow-wrap: break-word;
   line-break: anywhere;
+  display: none;
 }
 
 #outputContent * {
   white-space: normal !important;
-  word-wrap: break-word !important;
+  /* word-wrap: break-word !important; */
+  word-break: break-word !important;
   overflow-wrap: break-word !important;
-  line-break: anywhere;
+  line-break: auto;
 }
 
 .loader {
@@ -241,7 +244,5 @@ input[type="range"]::-webkit-slider-thumb {
 #content {
   display: none; /* Hide content initially */
 }
-
-
 
 

@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Audio Scraper</title>
+  <link href="index.css" rel="stylesheet" type="text/css" />
+  <link rel="stylesheet" href="/promptscraping/promptscraping.css">
+
+  <style>
+    .audio-upload-wrapper {
+      margin-top: 20px;
+    }
+
+    .audio-upload-label {
+      display: inline-block;
+      padding: 8px 16px;
+      background-color: black;
+      color: white;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .remove-audio-btn {
+      display: inline-block;
+      margin-left: 10px;
+      padding: 8px 12px;
+      background-color: #c0392b;
+      color: white;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+    }
+
+    .audio-preview {
+      margin-top: 15px;
+    }
+
+    .audio-preview audio {
+      width: 100%;
+      max-width: 500px;
+      outline: none;
+    }
+
+    .slider-container {
+      margin-top: 25px;
+    }
+
+    .role-btn {
+      padding: 6px 14px;
+      border: 1px solid #ccc;
+      background-color: #f7f7f7;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s ease-in-out;
+    }
+
+    .role-btn.selected {
+      background-color: black;
+      color: white;
+      border-color: black;
+    }
+  </style>
+</head>
+<body>
+  <div class="navbar-no-shadow">
+    <div class="navbar-no-shadow-container w-nav">
+      <div class="container-regular">
+        <div class="navbar-wrapper">
+          <a href="#" class="navbar-brand w-nav-brand">
+            <img src="https://cdn.prod.website-files.com/67f2220a9e19e1e37a55ec03/67f2225ebca552823848f963_DataWeave.png" loading="lazy" width="98" alt="DataWeave Logo" />
+          </a>
+          <nav class="nav-menu-wrapper w-nav-menu">
+            <ul role="list" class="nav-menu w-list-unstyled">
+              <li class="mobile-margin-top-10">
+                <div class="nav-button-wrapper">
+                  <a href="/urlscrape" class="button-primary w-button">URL Scraper</a>
+                  <a href="/promptscrape" class="button-primary w-button">Audio Scraper</a>
+                  <a href="/datasettext" class="button-primary w-button">Dataset Builder</a>
+                </div>
+              </li>
+            </ul>
+          </nav>
+          <div class="menu-button w-nav-button">
+            <div></div><div></div><div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container" id="originalContainer">
+    <label for="url">Describe the audio you'd like to analyze or extract data from:</label>
+    <textarea id="url" placeholder="e.g. Extract named entities and sentiment from a customer support call audio." rows="4"></textarea>
+
+    <div class="audio-upload-wrapper">
+      <label for="audioUpload" class="audio-upload-label">Upload Audio File</label>
+      <input type="file" id="audioUpload" accept="audio/*" style="display: none;" />
+      <button id="removeAudio" class="remove-audio-btn" style="display: none;">Remove</button>
+      <div id="audioPreview" class="audio-preview"></div>
+    </div>
+
+    <div class="slider-container">
+      <label for="volumeSlider">Confidence Threshold (0–100):</label>
+      <input type="range" id="volumeSlider" min="0" max="100" step="1" value="50" />
+      <span class="slider-label" id="volumeValue">50</span>
+    </div>
+
+    <div>
+      <label for="role">What best describes you?</label>
+      <div class="role-buttons">
+        <button class="role-btn" data-role="student">Student</button>
+        <button class="role-btn" data-role="Freelancer">Freelancer</button>
+        <button class="role-btn" data-role="corporate-analyst">Corporate Analyst</button>
+        <button class="role-btn" data-role="journalist">Journalist</button>
+        <button class="role-btn" data-role="marketer">Marketer</button>
+        <button class="role-btn" data-role="data-scientist">Data Scientist</button>
+        <button class="role-btn" data-role="researcher">Researcher</button>
+        <button class="role-btn" data-role="blogger">Blogger</button>
+        <button class="role-btn" data-role="startup-founder">Startup Founder</button>
+        <button class="role-btn" data-role="recruiter">Recruiter</button>
+        <button class="role-btn" data-role="e-commerce-seller">E-commerce Seller</button>
+        <button class="role-btn" data-role="teacher">Teacher</button>
+        <button class="role-btn" data-role="other">Other</button>
+      </div>
+    </div>
+
+    <br />
+    <button class="button-primary w-button scrapebtn" id="startScraping" style="background-color: black; color: white;">Start Audio Scraping</button>
+  </div>
+
+  <div class="content-container">
+    <div class="output-panel">
+      <h3>Transcription / Output:</h3>
+      <div id="outputContent"></div>
+    </div>
+    <div class="question-panel">
+      <label for="additionalPrompt">Ask something about the audio:</label>
+      <input type="text" id="additionalPrompt" placeholder="e.g. What is the main topic discussed?" style="width: 100%; padding: 8px; margin-top: 10px; border: 1px solid #ccc; border-radius: 4px;" />
+      <button style="margin-top: 10px; padding: 8px 16px; background-color: black; color: white; border: none; border-radius: 99px;">Ask</button>
+      <button style="margin-top: 10px; padding: 8px 16px; background-color: black; color: white; border: none; border-radius: 99px;">Export JSON</button>
+      <button style="margin-top: 10px; padding: 8px 16px; background-color: black; color: white; border: none; border-radius: 99px;">Export CSV</button>
+    </div>
+  </div>
+
+  <script>
+    const audioUpload = document.getElementById('audioUpload');
+    const audioPreview = document.getElementById('audioPreview');
+    const removeBtn = document.getElementById('removeAudio');
+    const slider = document.getElementById('volumeSlider');
+    const sliderValue = document.getElementById('volumeValue');
+    const roleButtons = document.querySelectorAll('.role-btn');
+    const startScrapingBtn = document.getElementById('startScraping');
+    let selectedRole = null;
+
+    // Handle slider value display
+    slider.addEventListener('input', () => {
+      sliderValue.textContent = slider.value;
+    });
+
+    // Handle audio preview
+    audioUpload.addEventListener('change', function (event) {
+      const file = event.target.files[0];
+      if (file && file.type.startsWith('audio/')) {
+        const audioURL = URL.createObjectURL(file);
+        audioPreview.innerHTML = `<audio controls src="${audioURL}"></audio>`;
+        removeBtn.style.display = 'inline-block';
+      } else {
+        audioPreview.innerHTML = `<p style="color:red;">Invalid audio file.</p>`;
+        removeBtn.style.display = 'none';
+      }
+    });
+
+    // Handle remove button
+    removeBtn.addEventListener('click', () => {
+      audioUpload.value = '';
+      audioPreview.innerHTML = '';
+      removeBtn.style.display = 'none';
+    });
+
+    // Handle role selection
+    roleButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        roleButtons.forEach(b => b.classList.remove('selected'));
+        btn.classList.add('selected');
+        selectedRole = btn.dataset.role;
+      });
+    });
+
+    // Handle scraping start
+    startScrapingBtn.addEventListener('click', () => {
+      const prompt = document.getElementById('url').value;
+      const threshold = slider.value;
+      const file = audioUpload.files[0];
+
+      console.log('--- Audio Scraper Values ---');
+      console.log('Prompt:', prompt);
+      console.log('Confidence Threshold:', threshold);
+      console.log('Selected Role:', selectedRole || 'None');
+      if (file) {
+        console.log('Audio File:', file.name, `(${file.type}, ${file.size} bytes)`);
+      } else {
+        console.log('Audio File: None');
+      }
+    });
+  </script>
+</body>
+</html>
