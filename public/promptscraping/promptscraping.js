@@ -77,6 +77,8 @@ scrapeButton.addEventListener('click', async () => {
 
     // Construct the final prompt
     const finalPrompt = `${textAreaValue} I am a ${selectedRole}. Keep the strength and detail of my information to ${slider.value}.`;
+    document.getElementById('loadingIndicator').style.display = 'block';
+
     console.log("Final Prompt:", finalPrompt);
 
     // Send the prompt to the backend
@@ -101,9 +103,11 @@ scrapeButton.addEventListener('click', async () => {
         outputPanel.style.display = 'block';
         questionPanel.style.display = 'block';
         originalContainer.style.display = 'none';
+        document.getElementById('loadingIndicator').style.display = 'none';
     } catch (err) {
         console.error("Error fetching results:", err.message);
         alert("Failed to fetch results. Please try again.");
+        document.getElementById('loadingIndicator').style.display = 'none';
     }
 });
 

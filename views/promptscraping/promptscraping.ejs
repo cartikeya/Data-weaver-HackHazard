@@ -9,6 +9,31 @@
 
 </head>
 <body>
+    <div id="loadingIndicator" style="
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 9999;
+  text-align: center;
+  background-color: rgba(255, 255, 255, 0.9);
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+">
+  <video id="loadingVideo" autoplay loop muted playsinline style="width: 250px; max-width: 90vw;">
+    <source src="/assets/loading.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+  <p style="margin-top: 15px; font-size: 18px; font-weight: 500;">Scraping in progress...</p>
+</div>
+    <style>
+      @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+      }
+    </style>
     <div class="navbar-no-shadow">
         <!-- Navigation bar container -->
         <div data-animation="default" data-collapse="medium" data-duration="400" data-easing="ease" data-easing2="ease" role="banner" class="navbar-no-shadow-container w-nav">
@@ -78,7 +103,8 @@
         </div>
         <br>
         <div class="btns" style="display: flex; justify-content: space-between; ">
-        <a class="button-primary w-button scrapebtn"  href="#" style="background-color: black; color: white;">Scrape now</a>
+            <a class="button-primary w-button scrapebtn"  href="#" style="background-color: black; color: white;">Scrape now</a>
+
         <a class="button-primary w-button scrapebtn" href="/audiopress" style="background-color: rgb(255, 255, 255); color: rgb(0, 0, 0);">Scrape from Audio</a></div>
         
     </div>
