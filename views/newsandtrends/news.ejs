@@ -2,47 +2,72 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>News Grid</title>
-  <script src="https://cdn.tailwindcss.com"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>News Page</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: sans-serif;
+      background-color: white;
+      color: black;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+      text-decoration: underline;
+      font-size: 1.8rem;
+      margin-bottom: 30px;
+    }
+
+    .grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+    }
+
+    .card {
+      background-color: #ccc;
+      width: calc(33.333% - 20px);
+      height: 350px;
+    }
+
+    @media (max-width: 900px) {
+      .card {
+        width: calc(50% - 20px);
+      }
+    }
+
+    @media (max-width: 600px) {
+      .card {
+        width: 100%;
+      }
+    }
+  </style>
 </head>
-<body class="bg-white text-black p-4">
-  <!-- Loading animation overlay -->
-<div id="globalLoader" style="
-position: fixed;
-top: 0; left: 0;
-width: 100vw;
-height: 100vh;
-background: white;
-z-index: 99999;
-display: flex;
-justify-content: center;
-align-items: center;
-transition: opacity 0.4s ease;
-">
-<!-- Replace this with your custom animation -->
-<video src="/assets/loading.mp4" autoplay muted loop style="width: 100px;"></video>
-</div>
-  <div class="max-w-6xl mx-auto">
-    <h1 class="text-xl font-bold underline mb-6 text-center">NEWS ARTICLES ON &lt;NICHE&gt;</h1>
-    
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-      <div class="bg-gray-300 h-40"></div>
-      <div class="bg-gray-300 h-40"></div>
-      <div class="bg-gray-300 h-40"></div>
-      <div class="bg-gray-300 h-40"></div>
-      <div class="bg-gray-300 h-40"></div>
-      <div class="bg-gray-300 h-40"></div>
+<body>
+
+  <div class="container">
+    <h1>NEWS ARTICLES ON &lt;NICHE&gt;</h1>
+
+    <div class="grid">
+      <div class="card"></div>
+      <div class="card"></div>
+      <div class="card"></div>
+
     </div>
   </div>
-  <script>
-    window.addEventListener('load', () => {
-        const loader = document.getElementById("globalLoader");
-        if (loader) {
-            loader.style.opacity = "0";
-            setTimeout(() => loader.style.display = "none", 400); // wait for fade-out
-        }
-    });
-</script>
+
 </body>
 </html>

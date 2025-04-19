@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "adm-zip": "^0.5.16",
+    "ai": "^4.3.9",
     "bootstrap": "^5.3.5",
     "cheerio": "^1.0.0",
     "dotenv": "^16.5.0",
@@ -20,9 +21,11 @@
     "groq": "^3.85.1",
     "groq-sdk": "^0.19.0",
     "multer": "^1.4.5-lts.2",
+    "newsapi": "^2.4.1",
     "node-fetch": "^3.3.2",
     "nodemon": "^3.1.9",
-    "openai": "^4.95.0",
+    "open": "^10.1.1",
+    "openai": "^4.95.1",
     "puppeteer": "^24.6.1"
   }
 }
