@@ -7,6 +7,22 @@
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-white text-black p-4">
+  <!-- Loading animation overlay -->
+<div id="globalLoader" style="
+position: fixed;
+top: 0; left: 0;
+width: 100vw;
+height: 100vh;
+background: white;
+z-index: 99999;
+display: flex;
+justify-content: center;
+align-items: center;
+transition: opacity 0.4s ease;
+">
+<!-- Replace this with your custom animation -->
+<video src="/assets/loading.mp4" autoplay muted loop style="width: 100px;"></video>
+</div>
   <div class="max-w-6xl mx-auto">
     <h1 class="text-xl font-bold underline mb-6 text-center">NEWS ARTICLES ON &lt;NICHE&gt;</h1>
     
@@ -19,5 +35,14 @@
       <div class="bg-gray-300 h-40"></div>
     </div>
   </div>
+  <script>
+    window.addEventListener('load', () => {
+        const loader = document.getElementById("globalLoader");
+        if (loader) {
+            loader.style.opacity = "0";
+            setTimeout(() => loader.style.display = "none", 400); // wait for fade-out
+        }
+    });
+</script>
 </body>
 </html>
