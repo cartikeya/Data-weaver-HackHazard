@@ -33,6 +33,10 @@ app.get("/", (req, res) => {
     res.render("index"); 
 });
 
+app.get("/news", (req, res) => {
+    res.render("newsandtrends/news"); // Render the news.ejs file
+});
+
 app.get('/audiopress', (req, res) => {
     res.render('./audioScraper/audiopress'); // OR 'audio/audioscraper' if it's inside views/audio/
 });
