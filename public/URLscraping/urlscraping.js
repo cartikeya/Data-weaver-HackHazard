@@ -71,3 +71,21 @@ button.addEventListener("click", () => {
     // Redirect to backend which will scrape and render
     window.location.href = `/scrape?url=${encodeURIComponent(url)}&limit=${encodeURIComponent(limit)}`;
 });
+
+
+// Add the animation class to the body when the page loads
+window.addEventListener("load", () => {
+    document.body.classList.add("page-loaded");
+});
+
+// Redirect to the new page with the blur and slide effect
+button.addEventListener("click", () => {
+    const url = urlInput.value.trim();
+    const limit = slider.value;
+
+    console.log("URL entered:", url);
+    console.log("Limit selected:", limit);
+
+    // Redirect to backend which will scrape and render
+    window.location.href = `/scrape?url=${encodeURIComponent(url)}&limit=${encodeURIComponent(limit)}`;
+});
