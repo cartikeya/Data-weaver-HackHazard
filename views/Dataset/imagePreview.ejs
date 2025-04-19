@@ -48,6 +48,22 @@
     </style>
 </head>
 <body>
+    <!-- Loading animation overlay -->
+<div id="globalLoader" style="
+position: fixed;
+top: 0; left: 0;
+width: 100vw;
+height: 100vh;
+background: white;
+z-index: 99999;
+display: flex;
+justify-content: center;
+align-items: center;
+transition: opacity 0.4s ease;
+">
+<!-- Replace this with your custom animation -->
+<video src="/assets/loading.mp4" autoplay muted loop style="width: 100px;"></video>
+</div>
     <h1>Image Dataset Preview</h1>
     <a href="/download-image-dataset" class="download-btn">Download All Images (ZIP)</a>
     <div class="grid">
@@ -55,5 +71,14 @@
             <img src="/image_dataset/<%= image %>" alt="dataset image" />
         <% }); %>
     </div>
+    <script>
+        window.addEventListener('load', () => {
+            const loader = document.getElementById("globalLoader");
+            if (loader) {
+                loader.style.opacity = "0";
+                setTimeout(() => loader.style.display = "none", 400); // wait for fade-out
+            }
+        });
+    </script>
 </body>
 </html>

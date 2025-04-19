@@ -27,13 +27,14 @@ document.querySelector(".start-btn").addEventListener("click", function () {
     const datasetSize = document.getElementById("datasetSize").value;
     const strength = document.getElementById("strength").value;
     const greyscaleInput = document.getElementById("greyscale");
-    const greyscale = greyscaleInput ? greyscaleInput.value : "false";
+    const greyscale = greyscaleInput ? greyscaleInput.checked : false; // Use 'checked' property
+
     console.log("Prompt:", prompt);
     console.log("Images uploaded:", document.getElementById("imageUpload").files.length);
     console.log("Accuracy:", accuracy);
     console.log("Dataset Size:", datasetSize);
     console.log("Strength:", strength);
-    console.log("Greyscale:", greyscale);
+    console.log("Greyscale:", greyscale); // Logs true if checked, false otherwise
 
     const imageFile = document.getElementById("imageUpload").files[0];
 
@@ -48,7 +49,7 @@ document.querySelector(".start-btn").addEventListener("click", function () {
     formData.append("accuracy", accuracy);
     formData.append("datasetSize", datasetSize);
     formData.append("strength", strength);
-    formData.append("greyscale", greyscale);
+    formData.append("greyscale", greyscale); // Pass boolean value
 
     fetch('/generate-image-dataset', {
         method: 'POST',

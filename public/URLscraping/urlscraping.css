@@ -575,3 +575,18 @@ a{
   border-width: 0 2px 2px 0;
   transform: rotate(45deg);
 }
+
+/* Initial state for the animation */
+.page-load-animation {
+  opacity: 0;
+  filter: blur(10px);
+  transform: translateY(-50px);
+  transition: opacity 0.8s ease, filter 0.8s ease, transform 0.8s ease;
+}
+
+/* Final state after the animation */
+.page-loaded {
+  opacity: 1;
+  filter: blur(0);
+  transform: translateY(0);
+}

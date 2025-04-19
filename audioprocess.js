@@ -1,11 +1,9 @@
-import fs from "fs";
-import Groq from "groq-sdk";
-import dotenv from "dotenv";
-
-dotenv.config(); // Loads variables from .env into process.env
+const fs = require("fs");
+const Groq = require("groq-sdk");
+require("dotenv").config(); // Loads variables from .env into process.env
 
 const groq = new Groq({
-  apiKey: process.env.API_KEY // pulls from your .env file
+  apiKey: process.env.API_KEY, // pulls from your .env file
 });
 
 /**
@@ -28,16 +26,8 @@ async function translateAudio(filePath, prompt = "") {
     return response.text;
   } catch (err) {
     console.error("❌ Translation failed:", err.message);
-    return null;
+    throw err;
   }
 }
 
-// Example usage
-async function main() {
-  const translatedText = await translateAudio("sampleaudiodata.mp3");
-  if (translatedText) {
-    console.log("📝 Translated Text:", translatedText);
-  }
-}
-
-main();
+module.exports = { translateAudio };

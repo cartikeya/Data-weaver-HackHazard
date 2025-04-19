@@ -1,5 +1,6 @@
 const express = require("express");
 const app = express();
+
 const port = 8080;
 const path = require('path');
 const scrapeWebsite = require('./scrapeWords-puppeteer'); // Import the scraping function
@@ -11,6 +12,8 @@ const multer = require('multer');
 const upload = multer({ dest: 'uploads/' }); // or customize filename/destination
 const AdmZip = require('adm-zip');
 const fs = require('fs');
+const { translateAudio } = require('./audioprocess');
+
 
 
 app.use(express.json()); 
@@ -28,6 +31,10 @@ app.use('/bootstrap', express.static(__dirname + '/node_modules/bootstrap/dist')
 // Routes
 app.get("/", (req, res) => {
     res.render("index"); 
+});
+
+app.get("/news", (req, res) => {
+    res.render("newsandtrends/news"); // Render the news.ejs file
 });
 
 app.get('/audiopress', (req, res) => {
@@ -79,6 +86,25 @@ app.get("/scrape", async (req, res) => {
         res.status(500).send("Failed to scrape the website");
     }
 });
+
+app.post('/convert-to-json', express.json(), (req, res) => {
+    const { output } = req.body;
+
+    if (!output || output.trim() === "") {
+      return res.status(400).json({ error: "Output from prompt scraping is required." });
+    }
+
+    const jsonData = {
+      timestamp: new Date().toISOString(),
+      data: output
+    };
+  
+    const jsonString = JSON.stringify(jsonData, null, 2);
+  
+    res.setHeader('Content-disposition', 'attachment; filename=output.json');
+    res.setHeader('Content-type', 'application/json');
+    res.send(jsonString);
+  });
 app.post('/scrapePrompt', async (req, res) => {
     const { prompt } = req.body;
 
@@ -242,3 +268,20 @@ app.get('/check-image-dataset', (req, res) => {
 
 
 
+app.post('/transcribe-audio', upload.single('audio'), async (req, res) => {
+    const audioFile = req.file;
+  
+    if (!audioFile) {
+      return res.status(400).json({ error: 'No audio file uploaded.' });
+    }
+  
+    try {
+      const transcription = await translateAudio(audioFile.path);
+      fs.unlinkSync(audioFile.path); // Clean up the uploaded file
+      res.json({ transcription });
+    } catch (error) {
+      console.error('Error transcribing audio:', error.message);
+      res.status(500).json({ error: 'Failed to transcribe audio.' });
+    }
+  });
+  

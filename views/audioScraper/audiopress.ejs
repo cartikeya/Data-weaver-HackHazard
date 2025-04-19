@@ -63,11 +63,27 @@
   </style>
 </head>
 <body>
+  <!-- Loading animation overlay -->
+<div id="globalLoader" style="
+position: fixed;
+top: 0; left: 0;
+width: 100vw;
+height: 100vh;
+background: white;
+z-index: 99999;
+display: flex;
+justify-content: center;
+align-items: center;
+transition: opacity 0.4s ease;
+">
+<!-- Replace this with your custom animation -->
+<video src="/assets/loading.mp4" autoplay muted loop style="width: 100px;"></video>
+</div>
   <div class="navbar-no-shadow">
     <div class="navbar-no-shadow-container w-nav">
       <div class="container-regular">
         <div class="navbar-wrapper">
-          <a href="#" class="navbar-brand w-nav-brand">
+          <a href="/" class="navbar-brand w-nav-brand">
             <img src="https://cdn.prod.website-files.com/67f2220a9e19e1e37a55ec03/67f2225ebca552823848f963_DataWeave.png" loading="lazy" width="98" alt="DataWeave Logo" />
           </a>
           <nav class="nav-menu-wrapper w-nav-menu">
@@ -151,6 +167,7 @@
     const sliderValue = document.getElementById('volumeValue');
     const roleButtons = document.querySelectorAll('.role-btn');
     const startScrapingBtn = document.getElementById('startScraping');
+    const outputContent = document.getElementById('outputContent');
     let selectedRole = null;
 
     // Handle slider value display
@@ -188,21 +205,42 @@
     });
 
     // Handle scraping start
-    startScrapingBtn.addEventListener('click', () => {
-      const prompt = document.getElementById('url').value;
-      const threshold = slider.value;
-      const file = audioUpload.files[0];
+    startScrapingBtn.addEventListener('click', async () => {
+    const file = audioUpload.files[0];
+    if (!file) {
+      alert("Please upload an audio file.");
+      return;
+    }
 
-      console.log('--- Audio Scraper Values ---');
-      console.log('Prompt:', prompt);
-      console.log('Confidence Threshold:', threshold);
-      console.log('Selected Role:', selectedRole || 'None');
-      if (file) {
-        console.log('Audio File:', file.name, `(${file.type}, ${file.size} bytes)`);
-      } else {
-        console.log('Audio File: None');
+    const formData = new FormData();
+    formData.append('audio', file);
+
+    try {
+      const response = await fetch('/transcribe-audio', {
+        method: 'POST',
+        body: formData,
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to transcribe audio.');
       }
-    });
+
+      const data = await response.json();
+      outputContent.textContent = data.transcription || 'No transcription available.';
+    } catch (error) {
+      console.error('Error:', error);
+      outputContent.textContent = 'Error transcribing audio.';
+    }
+  });
   </script>
+<script>
+  window.addEventListener('load', () => {
+      const loader = document.getElementById("globalLoader");
+      if (loader) {
+          loader.style.opacity = "0";
+          setTimeout(() => loader.style.display = "none", 400); // wait for fade-out
+      }
+  });
+</script>
 </body>
 </html>

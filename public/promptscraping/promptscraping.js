@@ -77,6 +77,11 @@ scrapeButton.addEventListener('click', async () => {
 
     // Construct the final prompt
     const finalPrompt = `${textAreaValue} I am a ${selectedRole}. Keep the strength and detail of my information to ${slider.value}.`;
+
+    // Show loading animation and add blur effect to main content
+    document.getElementById('loadingIndicator').style.display = 'block';
+    document.getElementById('mainContent').classList.add('blurred'); // Add blur effect to main content
+
     console.log("Final Prompt:", finalPrompt);
 
     // Send the prompt to the backend
@@ -104,6 +109,10 @@ scrapeButton.addEventListener('click', async () => {
     } catch (err) {
         console.error("Error fetching results:", err.message);
         alert("Failed to fetch results. Please try again.");
+    } finally {
+        // Hide loading animation and remove blur effect
+        document.getElementById('loadingIndicator').style.display = 'none';
+        document.getElementById('mainContent').classList.remove('blurred'); // Remove blur effect
     }
 });
 
