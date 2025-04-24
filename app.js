@@ -30,7 +30,7 @@ app.use('/bootstrap', express.static(__dirname + '/node_modules/bootstrap/dist')
 
 // Routes
 app.get("/", (req, res) => {
-    res.render("index"); 
+    res.sendFile(path.join(__dirname, "views", "index.html")); // ✅ Correct for HTML
 });
 
 app.get("/news", (req, res) => {

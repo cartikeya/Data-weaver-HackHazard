@@ -563,7 +563,7 @@ a{
   background-color: #333;
   border-color: #333;
 }
-
+      
 .checkbox-input:checked + .custom-checkbox::after {
   content: '';
   position: absolute;
