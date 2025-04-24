@@ -1,0 +1,11 @@
+beautifulsoup4==4.13.3
+icrawler==0.6.10
+python-docx
+openai
+requests
+lxml
+SpeechRecognition
+PyYAML
+pytz
+pillow
+pyttsx3
