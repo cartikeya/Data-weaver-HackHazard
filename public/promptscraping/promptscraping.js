@@ -10,6 +10,71 @@ const additionalPrompt = document.getElementById('additionalPrompt'); // Additio
 const sendAdditionalPrompt = document.getElementById('sendAdditionalPrompt'); // Send button for additional prompt
 const originalContainer = document.getElementById('originalContainer'); // Original container
 const questionPanel = document.querySelector('.question-panel');
+// Add an event listener for the JSON button
+// Add an event listener for the JSON button
+const jsonButton = document.getElementById('jsonButton');
+function processAIOutput(text) {
+    // Extract specific fields using patterns or AI-generated structure
+    const nameMatch = text.match(/Who is (.*?)\?/i);
+    const dateOfBirthMatch = text.match(/born (.*?) on (.*?),/i);
+    const addressMatch = text.match(/Born in (.*?),/i);
+    const summaryMatch = text.match(/TL;DR (.*)/i);
+
+    // Extract sections dynamically
+    const earlyLifeMatch = text.match(/Early Life and Career([\s\S]*?)Achievements/i);
+    const achievementsMatch = text.match(/Achievements([\s\S]*?)Style and Records/i);
+    const styleAndRecordsMatch = text.match(/Style and Records([\s\S]*?)Leadership and Captaincy/i);
+    const leadershipMatch = text.match(/Leadership and Captaincy([\s\S]*?)Personal Life/i);
+    const personalLifeMatch = text.match(/Personal Life([\s\S]*?)Legacy/i);
+    const legacyMatch = text.match(/Legacy([\s\S]*)/i);
+
+    // Create a structured JSON object
+    const structuredData = {
+        name: nameMatch ? nameMatch[1].trim() : "N/A",
+        dateOfBirth: dateOfBirthMatch ? dateOfBirthMatch[2].trim() : "N/A",
+        address: addressMatch ? addressMatch[1].trim() : "N/A",
+        summary: summaryMatch ? summaryMatch[1].trim() : "N/A",
+        sections: {
+            earlyLife: earlyLifeMatch ? earlyLifeMatch[1].trim() : "N/A",
+            achievements: achievementsMatch ? achievementsMatch[1].trim() : "N/A",
+            styleAndRecords: styleAndRecordsMatch ? styleAndRecordsMatch[1].trim() : "N/A",
+            leadership: leadershipMatch ? leadershipMatch[1].trim() : "N/A",
+            personalLife: personalLifeMatch ? personalLifeMatch[1].trim() : "N/A",
+            legacy: legacyMatch ? legacyMatch[1].trim() : "N/A"
+        },
+        fullOutput: text // Include the full text as a fallback
+    };
+
+    return structuredData;
+}
+
+
+// Update the JSON button logic to use the processed output
+jsonButton.addEventListener('click', () => {
+    const outputContent = document.getElementById('outputContent').innerText.trim();
+
+    if (!outputContent) {
+        alert('No output data available to generate JSON.');
+        return;
+    }
+
+    // Process the output into structured fields
+    const structuredOutput = processAIOutput(outputContent);
+
+    // Convert structured data to a JSON string
+    const jsonString = JSON.stringify(structuredOutput, null, 2);
+
+    // Create a Blob object
+    const blob = new Blob([jsonString], { type: 'application/json' });
+
+    // Create a download link
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = 'structured_output.json';
+
+    // Trigger the download
+    link.click();
+});
 
 
 roleButtons.forEach(button => {
