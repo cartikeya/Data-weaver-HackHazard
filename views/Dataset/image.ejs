@@ -134,5 +134,38 @@ transition: opacity 0.4s ease;
             }
         });
     </script>
+    <script>
+    const startButton = document.querySelector(".start-btn");
+    const loader = document.getElementById("globalLoader");
+
+startButton.addEventListener("click", async () => {
+    if (loader) {
+        loader.style.display = "flex";
+        loader.style.opacity = "1";
+    }
+
+    // Submit the form or trigger your async dataset generation process
+    // Then after the dataset is generated (replace with your real check)
+    try {
+        await fetch("/generate-image-dataset", {
+            method: "POST",
+            body: new FormData(document.querySelector("form")) // if form exists
+        });
+
+        // After it's done, hide the loader
+        loader.style.opacity = "0";
+        setTimeout(() => loader.style.display = "none", 400);
+
+        // Optionally show view dataset button
+        const viewBtn = document.getElementById("viewDatasetBtn");
+        if (viewBtn) viewBtn.style.display = "inline-block";
+
+    } catch (err) {
+        console.error("Dataset generation failed", err);
+        loader.style.opacity = "0";
+        setTimeout(() => loader.style.display = "none", 400);
+    }
+});
+</script>
 </body>
 </html>
