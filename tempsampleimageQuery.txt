@@ -1,1 +1,1 @@
-The laptop displays video editing software on its screen currently. | 2 | 3 | false | 4
+The laptop is being used for video editing purposes today. | 5 | 5 | false | 5
