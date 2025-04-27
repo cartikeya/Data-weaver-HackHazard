@@ -77,49 +77,47 @@ transition: opacity 0.4s ease;
     <div class="container outer-text-container">
         <h2 class="dataset-heading">Image Dataset</h2>
         
-        <form id="imageDatasetForm" enctype="multipart/form-data">
-            <div class="inner-text-container">
-                <label for="datasetPrompt" class="dataset-label">Prompt</label>
-                <input type="text" id="datasetPrompt" class="dataset-input" placeholder="enter your dream dataset" />
-    
-                <label for="imageUpload" class="upload-docx-label">Upload Images</label>
-                <input type="file" id="imageUpload" accept="image/*" style="display: none;">
-                <a id="downloadImageLink" style="display: none;" download="sampleimage.jpg">Download Uploaded Image</a>
-    
-                <div id="imagePreview" class="docx-preview-container" style="display: none;">
-                    <p><strong>Preview:</strong></p>
-                    <div id="imagePreviewContainer" class="docx-content-box"></div>
+        <div class="inner-text-container">
+            <label for="datasetPrompt" class="dataset-label">Prompt</label>
+            <input type="text" id="datasetPrompt" class="dataset-input" placeholder="enter your dream dataset" />
+
+            <label for="imageUpload" class="upload-docx-label">Upload Images</label>
+            <input type="file" id="imageUpload" accept="image/*" style="display: none;">
+            <a id="downloadImageLink" style="display: none;" download="sampleimage.jpg">Download Uploaded Image</a>
+
+            <div id="imagePreview" class="docx-preview-container" style="display: none;">
+                <p><strong>Preview:</strong></p>
+                <div id="imagePreviewContainer" class="docx-content-box"></div>
+            </div>
+
+            
+            <div class="parameter-section">
+                <h5 class="parameter-heading">Parameters</h5>
+                <div class="parameter-item">
+                    <label class="parameter-label" for="accuracy">Accuracy:</label>
+                    <input type="range" id="accuracy" name="accuracy" min="0" max="10" value="5" class="parameter-slider">
                 </div>
-    
-                
-                <div class="parameter-section">
-                    <h5 class="parameter-heading">Parameters</h5>
-                    <div class="parameter-item">
-                        <label class="parameter-label" for="accuracy">Accuracy:</label>
-                        <input type="range" id="accuracy" name="accuracy" min="0" max="10" value="5" class="parameter-slider">
-                    </div>
-    
-                    <div class="parameter-item">
-                        <label class="parameter-label" for="datasetSize">Dataset Size:</label>
-                        <input type="range" id="datasetSize" name="datasetSize" min="0" max="10" value="5" class="parameter-slider">
-                    </div>
-    
-                    <div class="parameter-item greyscale-item">
-                        <label for="greyscale">Greyscale:</label>
-                        <input type="checkbox" name="greyscale" id="greyscale">
-    
-                    </div>
-                    <div class="parameter-item">
-                        <label class="parameter-label" for="strength">Strength:</label>
-                        <input type="range" id="strength" name="strength" min="0" max="10" value="5" class="parameter-slider">
-                    </div>
+
+                <div class="parameter-item">
+                    <label class="parameter-label" for="datasetSize">Dataset Size:</label>
+                    <input type="range" id="datasetSize" name="datasetSize" min="0" max="10" value="5" class="parameter-slider">
                 </div>
-                <div class="start-button-wrapper">
-                    <button class="start-btn">START COOKING</button>
-                    <a href="/view-image-dataset" id="viewDatasetBtn" class="button-primary w-button" style="margin-top: 20px;display: none;">View Dataset</a>
+
+                <div class="parameter-item greyscale-item">
+                    <label for="greyscale">Greyscale:</label>
+                    <input type="checkbox" name="greyscale" id="greyscale">
+
+                </div>
+                <div class="parameter-item">
+                    <label class="parameter-label" for="strength">Strength:</label>
+                    <input type="range" id="strength" name="strength" min="0" max="10" value="5" class="parameter-slider">
                 </div>
             </div>
-        </form>
+            <div class="start-button-wrapper">
+                <button class="start-btn">START COOKING</button>
+                <a href="/view-image-dataset" id="viewDatasetBtn" class="button-primary w-button" style="margin-top: 20px;display: none;">View Dataset</a>
+            </div>
+        </div>
     </div>
 
     <script src="/Dataset/image.js"></script>
