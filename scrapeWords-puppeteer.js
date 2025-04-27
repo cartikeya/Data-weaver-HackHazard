@@ -2,6 +2,7 @@ const puppeteer = require('puppeteer');
 // const { openAI } = require('openai');
 const { OpenAI } = require('openai');
 
+
 const openai = new OpenAI({
   apiKey: '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', // 🔐 Replace with your Groq API key
   baseURL: 'https://api.groq.com/openai/v1'
@@ -27,7 +28,7 @@ async function scrapeWebsite(url) {
     const words = pageText.match(/\b\w+\b/g) || [];
     const firstThousand = words.slice(0, 3000).join(' ');
 
-    const summarizedText = await summarizeText(firstThousand)
+  const browser = await puppeteer.launch({ headless: true, args: ['--no-sandbox', '--disable-setuid-sandbox'] }); // Set to false if you want to see it open Chrome
     // console.log('summarized text: ',summarizedText);
     await browser.close();
     return summarizedText;
