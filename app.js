@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express();
 
-const port = 8080;
+const PORT = process.env.PORT || 8080;
 const path = require('path');
 const scrapeWebsite = require('./scrapeWords-puppeteer'); // Import the scraping function
 const convertText = require('./textprocessai');
@@ -141,10 +141,9 @@ app.post('/scrapePrompt', async (req, res) => {
 //     }
 // });
 
-app.listen(port, () => {
-    console.log("Server is listening on port", port);
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
 });
-
 
 
 
