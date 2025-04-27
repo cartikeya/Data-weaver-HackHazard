@@ -13,7 +13,11 @@ async function scrapeWebsite(url) {
     throw new Error("URL is required");
   }
 
-  const browser = await puppeteer.launch({ headless: true }); // Set to false if you want to see it open Chrome
+  const browser = await puppeteer.launch({
+    headless: true,
+    args: ['--no-sandbox', '--disable-setuid-sandbox']
+  }); // Only one launch now ✅
+
   const page = await browser.newPage();
 
   await page.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/122.0.0.0 Safari/537.36');
@@ -28,8 +32,8 @@ async function scrapeWebsite(url) {
     const words = pageText.match(/\b\w+\b/g) || [];
     const firstThousand = words.slice(0, 3000).join(' ');
 
-  const browser = await puppeteer.launch({ headless: true, args: ['--no-sandbox', '--disable-setuid-sandbox'] }); // Set to false if you want to see it open Chrome
-    // console.log('summarized text: ',summarizedText);
+    const summarizedText = await summarizeText(firstThousand); // You missed this line before!
+
     await browser.close();
     return summarizedText;
 
