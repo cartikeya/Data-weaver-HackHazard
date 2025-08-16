@@ -3,7 +3,7 @@
 
 ![github-submission-banner](https://github.com/user-attachments/assets/a1493b84-e4e2-456e-a791-ce35ee2bcf2f)
 
-# 🚀 Project Title
+# 🚀 Project Title: DataWeave
 
 > DataWeave is an AI-powered web scraping and data processing tool that lets users extract information from any website, format it into CSV/JSON, and query it using multiple LLMs like Groq and GPT. It supports both direct URL scraping and prompt-based intelligent search, giving users full control over how data is gathered, cleaned, and analyzed—without writing a single line of code.
 
